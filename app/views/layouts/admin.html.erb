@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= @title.present? ? "#{@title} - Admin Panel - The LANBox - Gaming, networked." : "Admin Panel - The LANBox - Gaming, networked." %></title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/assets/lb_logo.png" />
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag "common", media: "all" %>
+  <%= stylesheet_link_tag "admin", media: "all" %>
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="top-menu" class="pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+      <div id="side-menu-link" class="side-menu-link" onClick="$('#wrap').toggleClass('active');">
+        <span class="fa fa-bars"></span>
+      </div>
+
+      <a class="pure-menu-heading" href="/admin">Admin Panel</a>
+
+      <ul>
+        <li><a><span class="fa fa-globe"></span><span class="pure-hidden-sm"> Website</span></a></li>
+        <li><a><span class="fa fa-cog"></span><span class="pure-hidden-sm"> Settings</span></a></li>
+        <li>
+          <%= link_to('<span class="fa fa-sign-out"></span><span class="pure-hidden-sm"> Sign Out</span>'.html_safe, destroy_user_session_path, :method => :delete) %>
+        </li>
+      </ul>
+    </header>
+
+    <nav id="side-menu" class="pure-menu pure-menu-open">
+      <ul>
+        <li class="pure-menu-selected"><a href="/admin"><span class="fa fa-home"></span> Dashboard</a></li>
+        <li><a href="/admin/blog_posts"><span class="fa fa-bullhorn"></span> Blog Posts</a></li>
+        <li><a><span class="fa fa-th-list"></span> Test Item</a></li>
+      </ul>
+    </nav>
+
+    <section id="main">
+      <h1 id="main-title"><%= @title.present? ? @title : 'Admin Panel' %></h1>
+
+      <section id="main-breadcrumbs">
+        <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> ') %>
+      </section>
+
+      <section id="main-content">
+        <div id="flashes">
+          <% flash.each do |type, message| %>
+            <div class="flash <%= type %>"><%= message %></div>
+          <% end %>
+        </div>
+
+        <%= yield %>
+      </section>
+
+      <footer>
+        &copy; <%= Time.now.year %> Grant Colegate. All rights reserved. <span style="float: right;" class="pure-hidden-sm">This site is built with &lt;3 using Pure 0.5.0</span>
+      </footer>
+    </section>
+  </div>
+</body>
+
+<%= javascript_include_tag 'common' %>
+<%= javascript_include_tag 'admin' %>
+<!--[if lt IE 9]>
+  <%= javascript_include_tag 'http://html5shiv.googlecode.com/svn/trunk/html5.js' %>
+<![endif]-->
+</html>

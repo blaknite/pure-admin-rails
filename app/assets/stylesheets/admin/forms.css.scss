@@ -1,0 +1,23 @@
+.pure-form {
+  label {
+    font-size: 0.9em;
+  }
+}
+
+.pure-form-aligned {
+  label {
+    font-size: 1em;
+  }
+
+  .pure-controls {
+    padding-top: 1em;
+    margin-top: 0;
+    border-top: 1px solid #e5e5e5;
+  }
+}
+
+.editor-field {
+  min-height: 400px;
+  font-family: monospace !important;
+  line-height: 1.3em;
+}
