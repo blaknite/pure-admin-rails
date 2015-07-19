@@ -4,6 +4,7 @@ module PureAdmin
 
     def generate_layout
       template 'admin.html.erb', 'app/views/layouts/admin.html.erb'
+      template 'admin.css.scss', 'app/assets/stylesheets/admin.css.scss'
     end
   end
 end
