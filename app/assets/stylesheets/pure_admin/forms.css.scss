@@ -1,0 +1,52 @@
+.pure-form {
+  label {
+    font-size: 0.9em;
+  }
+}
+
+.pure-form-aligned {
+  label {
+    font-size: 0.9em;
+    text-transform: uppercase;
+  }
+
+  .pure-control-group {
+    label {
+      line-height: 2.6em;
+
+      @media (min-width: 35.5em) {
+        width: 7.5em;
+      }
+
+      @media (min-width: 64em) {
+        width: 11em;
+      }
+
+      &.checkbox {
+        width: 1em;
+        margin: 0;
+      }
+    }
+  }
+
+  input.file {
+    padding: 0.55em;
+  }
+
+  .pure-controls {
+    padding-top: 1em;
+    margin-top: 0;
+    border-top: 1px solid #e5e5e5;
+  }
+}
+
+.editor-field {
+  min-height: 400px;
+  font-family: monospace !important;
+  line-height: 1.3em;
+  width: 100%;
+
+  @media (min-width: 80em) {
+    width: 64em;
+  }
+}

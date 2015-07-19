@@ -1,0 +1,357 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  color: #555555;
+}
+
+h1 {
+  font-size: 2.25em;
+  margin: 0.7em 0;
+}
+
+h2 {
+  font-size: 1.85em;
+  margin: 0.7em 0;
+}
+
+h3 {
+  font-size: 1.6em;
+  margin: 1.4em 0 0.7em 0;
+}
+
+h4 {
+  font-size: 1.2em;
+  margin: 1.6em 0 0.8em 0;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-size: 1em;
+  margin: 1.8em 0 0.8em 0;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+h6 {
+  font-size: 1em;
+  margin: 2em 0 1em 0;
+}
+
+h1, h2, h3 {
+  font-weight: 400;
+  color: #444444;
+}
+
+h4, h5, h6 {
+  color: #444444;
+}
+
+.cf:before, .cf:after {
+  content: " ";
+  display: table;
+}
+
+.cf:after {
+  clear: both;
+}
+
+.cf {
+  *zoom: 1;
+}
+
+.container {
+  width: 100%;
+
+  @media (min-width: 48em) {
+    width: 730px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 64em) {
+    width: 970px;
+  }
+
+  @media (min-width: 80em) {
+    width: 1170px;
+  }
+}
+
+#body {
+  @media (min-width: 48em) {
+    padding-top: 1.5em;
+  }
+}
+
+.pure-button {
+  border-radius: 0;
+  border: 1px solid #cccccc;
+
+  .fa {
+    margin-left: -3px;
+    margin-right: 3px;
+    position: relative;
+    top: -1px;
+  }
+
+  &:hover {
+    color: #555555;
+  }
+}
+
+a.pure-button-primary, .pure-button-primary {
+  background-color: #4a9fc8;
+  border-color: darken(#4a9fc8, 10%);
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+.pure-button-hover,
+.pure-button:hover,
+.pure-button:focus {
+  background-image: -webkit-linear-gradient(rgba(255,255,255, 0.15), rgba(255,255,255, 0.15));
+  background-image:    -moz-linear-gradient(rgba(255,255,255, 0.15), rgba(255,255,255, 0.15));
+  background-image:      -o-linear-gradient(rgba(255,255,255, 0.15), rgba(255,255,255, 0.15));
+  background-image:         linear-gradient(rgba(255,255,255, 0.15), rgba(255,255,255, 0.15));
+}
+
+.pure-form {
+  width: 100%;
+  margin: 1em 0;
+
+  legend {
+    margin-bottom: 1em;
+  }
+
+  .pure-control-group {
+    margin-bottom: 1em;
+  }
+
+  .hint, .error {
+    display: block;
+    margin-top: 0.8em;
+    margin-bottom: 0.5em;
+    color: #999999;
+    font-style: italic;
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+
+  .error {
+    color: #b94a48;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="week"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  textarea {
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-appearance: none;
+
+    @media only screen and (max-width: 480px) {
+      width: 100%;
+    }
+
+    &:focus {
+      border-color: #4a9fc8;
+    }
+  }
+
+  select {
+    border-radius: 0;
+    box-shadow: none;
+
+    @media only screen and (max-width: 480px) {
+      width: 100%;
+    }
+
+    &:focus {
+      border-color: #4a9fc8;
+    }
+  }
+
+  .pure-control-group.control-group-with-error {
+    input {
+      color: #b94a48;
+      border-color: #ee5f5b;
+    }
+  }
+
+  .pure-group {
+    input:first-child {
+      border-radius: 0;
+    }
+
+    input:last-child {
+      border-radius: 0;
+    }
+  }
+}
+
+.pure-form-aligned {
+  .hint, .error {
+    margin-left: 12.3em;
+
+    @media (max-width: 63.9em) {
+      margin-left: 9em;
+    }
+
+    @media (max-width: 480px) {
+      margin-left: 0;
+    }
+  }
+
+  .pure-controls {
+    margin-top: 1em;
+    margin-left: 0;
+    padding-left: 11em;
+
+    @media screen and (max-width: 63.9em) {
+      padding-left: 8em;
+    }
+
+    @media only screen and (max-width: 480px) {
+      padding-left: 0;
+    }
+  }
+
+  @media only screen and (min-width: 480px) {
+    .pure-control-group {
+      label {
+        float: left;
+        line-height: 2.3em;
+      }
+    }
+
+    .pure-input-wrapper {
+      margin-left: 11em;
+    }
+  }
+
+  @media screen and (max-width: 63.9em) {
+    .pure-control-group {
+      label {
+        width: 7em;
+      }
+    }
+
+    .pure-input-wrapper {
+      margin-left: 8em;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .pure-input-wrapper {
+      margin-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 47.9em) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 63.9em) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 79.9em) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .show-sm {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 64em) {
+  .show-md {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 80em) {
+  .show-lg {
+    display: none !important;
+  }
+}
+
+.padded {
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  @media (min-width: 48em) {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+@media (min-width: 48em) {
+  .padded-left {
+    padding-left: 1em;
+  }
+
+  .padded-right {
+    padding-right: 1em;
+  }
+}
+
+.padded-top {
+  padding-top: 1em;
+}
+
+.padded-bottom {
+  padding-bottom: 1em;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+::-webkit-input-placeholder {
+   color: #888888;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #888888;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #888888;
+}
+
+:-ms-input-placeholder {
+   color: #888888;
+}

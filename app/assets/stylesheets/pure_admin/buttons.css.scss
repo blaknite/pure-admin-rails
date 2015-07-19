@@ -1,0 +1,48 @@
+.button-xsmall {
+  font-size: 70%;
+}
+
+.button-small {
+  font-size: 85%;
+}
+
+.button-large {
+  font-size: 110%;
+}
+
+.button-xlarge {
+  font-size: 125%;
+}
+
+.button-green,
+.button-red,
+.button-orange {
+  color: white;
+
+  &:hover {
+    color: white;
+  }
+}
+
+.button-green {
+  background: #339900;
+  border-color: darken(#339900, 10%);
+}
+
+.button-red {
+  background: #CC3333;
+  border-color: darken(#CC3333, 10%);
+}
+
+.button-orange {
+  background: #e49457;
+  border-color: #cb844e;
+}
+
+.button-icon-only {
+  padding: 0.5em 0.75em;
+
+  .fa {
+    margin: 0;
+  }
+}

@@ -1,0 +1,84 @@
+#flashes {
+  &.fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+    top: 3.5em;
+  }
+
+  .container {
+    padding: 0 0.5em;
+  }
+}
+
+.flash {
+  padding: 0.66em 1em;
+  border: 1px solid transparent;
+  font-size: 14px;
+  position: relative;
+  cursor: pointer;
+
+  @media (min-width: 48em) {
+    margin-bottom: 1em;
+  }
+
+  &.with-top-margin {
+    margin-top: 1em;
+
+    @media (min-width: 48em) {
+      margin-top: 2em;
+    }
+  }
+
+  &.larger-margin {
+    @media (min-width: 48em) {
+      margin-bottom: 1.7em;
+    }
+  }
+
+  &.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+
+  &.notice {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+
+  &.alert {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+
+  &.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+
+  &.with-icon {
+    padding-left: 3em;
+
+    .fa {
+      font-size: 1.5em;
+      float: left;
+      position: relative;
+      top: -2px;
+      left: -1.5em;
+      margin-right: -2em;
+    }
+  }
+}
+
+.flash > p,
+.flash > ul {
+  margin-bottom: 0;
+}
+
+.flash > p + p {
+  margin-top: 5px;
+}

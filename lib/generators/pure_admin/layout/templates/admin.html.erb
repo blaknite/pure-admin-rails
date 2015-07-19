@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pure Admin</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag "pure_admin", media: "all" %>
+  <link href='http://fonts.googleapis.com/css?family=Exo+2:400,300,700,700italic,400italic,300italic' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div id="wrap">
+    <header id="top-menu" class="pure-menu pure-menu-horizontal pure-menu-fixed">
+      <div id="side-menu-link" class="side-menu-link" onClick="$('#wrap').toggleClass('active');">
+        <span class="fa fa-bars"></span>
+      </div>
+
+      <%= link_to 'Admin Panel', admin_root_path, class: 'pure-menu-heading' %>
+
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+          <%= link_to root_path, class: 'pure-menu-link' do %>
+            <span class="fa fa-external-link"></span>
+          <% end %>
+        </li>
+      </ul>
+    </header>
+
+    <nav id="side-menu" class="pure-menu">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+          <%= link_to admin_root_path, class: 'pure-menu-link' do %>
+            <span class="fa fa-home"></span> Dashboard
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+
+    <section id="main">
+      <h1 id="main-title">Dashboard</h1>
+
+      <section id="main-breadcrumbs">
+        <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> ') %>
+      </section>
+
+      <section id="main-content">
+        <div id="flashes">
+          <% flash.each do |type, message| %>
+            <div class="flash <%= type %>"><%= message %></div>
+          <% end %>
+        </div>
+
+        <%= yield %>
+      </section>
+
+      <footer>
+        &copy; <%= Time.now.year %> Grant Colegate. All rights reserved. <span style="float: right;" class="hidden-sm">This site is built with &lt;3 using Pure 0.6.0</span>
+      </footer>
+    </section>
+  </div>
+</body>
+
+<%= javascript_include_tag 'pure_admin' %>
+<!--[if lt IE 9]>
+  <%= javascript_include_tag 'http://html5shiv.googlecode.com/svn/trunk/html5.js' %>
+<![endif]-->
+</html>

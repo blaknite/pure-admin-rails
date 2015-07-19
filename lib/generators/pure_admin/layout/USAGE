@@ -1,0 +1,8 @@
+Description:
+    This will generate skeleton layout files that you will need to modify to suit your application.
+
+Example:
+    rails generate layouts
+
+    This will create:
+        app/views/layouts/atmin.html.erb
