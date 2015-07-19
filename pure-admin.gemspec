@@ -16,5 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,lib}/**/*", "LICENSE", "README.md"]
 
   s.add_dependency "font-awesome-rails"
+  s.add_dependency "pure-css-rails"
   s.add_dependency "exo2-rails"
+  s.add_dependency "crummy"
 end
