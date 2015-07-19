@@ -1,15 +1,8 @@
-/*
- *= require pure
- *= require grids-responsive
- *= require font-awesome
- *= require exo2
- *= pure_css_reset
- *= pure_admin/shell
- *= pure_admin/forms
- *= pure_admin/portlets
- *= pure_admin/tables
- *= pure_admin/flash_messages
- *= pure_admin/pagination
- *= pure_admin/buttons
- *= pure_admin/details_panel
-*/
+@import 'pure_admin/shell.css.scss';
+@import 'pure_admin/forms.css.scss';
+@import 'pure_admin/portlets.css.scss';
+@import 'pure_admin/tables.css.scss';
+@import 'pure_admin/flash_messages.css.scss';
+@import 'pure_admin/pagination.css.scss';
+@import 'pure_admin/buttons.css.scss';
+@import 'pure_admin/details_panel.css.scss';
