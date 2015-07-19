@@ -1,7 +1,11 @@
-# Describe your gem and declare its dependencies:
+$:.push File.expand_path("../lib", __FILE__)
+
+require "pure-admin-rails/version"
+
 Gem::Specification.new do |s|
-  s.name        = "pure-admin-rails"
-  s.version     = "0.0.1"
+  s.name        = 'pure-admin-rails'
+  s.version     = PureAdmin::Rails::VERSION
+  s.date        = '2015-07-19'
   s.authors     = ["Grant Colegate"]
   s.email       = ["blaknite@thelanbox.com.au"]
   s.homepage    = ""
