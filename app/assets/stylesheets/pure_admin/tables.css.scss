@@ -116,7 +116,7 @@
     }
   }
 
-  .pure-button {
+  .pure-button, .pure-button[type=submit] {
     padding: 0.5em 1em;
     margin-left: -4px
   }
