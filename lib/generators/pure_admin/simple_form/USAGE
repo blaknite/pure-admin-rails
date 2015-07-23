@@ -2,7 +2,7 @@ Description:
     This will generate a simple_form initializer that you may need to modify to suit your application.
 
 Example:
-    rails generate simple_form
+    rails generate pure_admin:simple_form
 
     This will create:
         config/initializers/simple_form.rb

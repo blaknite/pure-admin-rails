@@ -2,7 +2,9 @@ Description:
     This will generate skeleton layout files that you will need to modify to suit your application.
 
 Example:
-    rails generate layouts
+    rails generate pure_admin:layout
 
     This will create:
-        app/views/layouts/atmin.html.erb
+        app/views/layouts/admin.html.erb
+        app/assets/stylesheets/admin.css.scss
+
