@@ -1,0 +1,37 @@
+.tag {
+  background: #bbbbbb;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  line-height: 8px;
+  margin-right: 6px;
+  position: relative;
+  top: -1px;
+  display: inline;
+  min-height: 13px;
+
+  &.tag-orange {
+    background: #e49457;
+  }
+
+  &.tag-red {
+    background: #CC3333;
+  }
+
+  &.tag-green {
+    background: #339900;
+  }
+
+  &.tag-blue {
+    background: #4a9fc8;
+  }
+}
+
+.details-panel {
+  .tag {
+    top: -2px;
+  }
+}

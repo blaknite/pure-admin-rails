@@ -1,0 +1,28 @@
+.scopes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 0.9em;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  line-height: 1em;
+  float: left;
+
+  span {
+    color: #777777;
+    font-size: 0.8em;
+  }
+
+  li {
+    display: inline-block;
+    padding-left: 0.5em;
+
+    a {
+      color: #777777;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

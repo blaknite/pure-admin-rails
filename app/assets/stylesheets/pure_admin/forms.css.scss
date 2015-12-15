@@ -1,30 +1,46 @@
 .pure-form {
+  font-size: 14px;
+
   label {
-    font-size: 0.9em;
+    font-size: 14px;
   }
 }
 
 .pure-form-aligned {
   label {
-    font-size: 0.9em;
+    font-size: 14px;
     text-transform: uppercase;
   }
 
   .pure-control-group {
     label {
-      line-height: 2.6em;
+      line-height: 2.4em;
+      float: none;
+      text-align: left;
 
-      @media (min-width: 35.5em) {
-        width: 7.5em;
-      }
-
-      @media (min-width: 64em) {
-        width: 11em;
+      @media (min-width: 48em) {
+        width: $base-font-size * 11;
+        float: left;
+        text-align: right;
       }
 
       &.checkbox {
-        width: 1em;
+        width: $base-font-size;
         margin: 0;
+      }
+    }
+
+    .pure-input-wrapper {
+      margin-left: 0;
+
+      @media (min-width: 48em) {
+        margin-left: $base-font-size * 12;
+      }
+    }
+
+    .hint, .error {
+      @media (min-width: 48em) {
+        margin-left: $base-font-size * 12;
       }
     }
   }
@@ -34,9 +50,16 @@
   }
 
   .pure-controls {
-    padding-top: 1em;
-    margin-top: 0;
-    border-top: 1px solid #e5e5e5;
+    padding: $base-font-size 0;
+    border-top: 2px solid #e8e8e8;
+
+    @media (min-width: 48em) {
+      padding-left: $base-font-size * 12;
+    }
+
+    .pure-button {
+      margin-right: $base-font-size * 0.25;
+    }
   }
 }
 

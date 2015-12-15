@@ -1,0 +1,72 @@
+.details-panel {
+  font-size: 14px;
+  padding-bottom: $base-font-size;
+  padding: 0 0.5em 1em 0.5em;
+
+  @media (min-width: 48em) {
+    padding: 0;
+    padding-bottom: 1em;
+  }
+
+  div.details-row {
+    margin: $base-font-size * 0.5 0;
+
+    @media (min-width: 48em) {
+      padding-left: $base-font-size * 12;
+    }
+
+    label {
+      text-transform: uppercase;
+      font-size: $base-font-size * 0.9;
+      display: block;
+      color: #999999;
+
+      @media (min-width: 48em) {
+        display: inline-block;
+        width: $base-font-size * 12;
+        text-align: right;
+        margin-right: $base-font-size;
+        position: relative;
+        left: -$base-font-size * 13;
+        margin-right: -$base-font-size * 12;
+      }
+    }
+
+    img {
+      vertical-align: top;
+      border: 2px solid #cccccc;
+    }
+  }
+}
+
+.details-controls {
+  font-size: 14px;
+  padding: $base-font-size 0;
+  border-top: 2px solid #e8e8e8;
+
+  @media (min-width: 48em) {
+    padding-left: $base-font-size * 12;
+  }
+
+  .pure-button {
+    margin-right: $base-font-size * 0.25;
+    margin-bottom: $base-font-size * 0.6;
+  }
+}
+
+.portlet-body {
+  .details-panel {
+    padding: 1em 0;
+  }
+
+  .details-controls {
+    background: #f4f4f4;
+    margin: 0 $base-font-size * -1;
+    padding: $base-font-size * 0.5 $base-font-size;
+    padding-bottom: 0;
+
+    @media (min-width: 48em) {
+      padding-left: $base-font-size * 13;
+    }
+  }
+}

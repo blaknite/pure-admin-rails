@@ -2,55 +2,41 @@
   background: #ffffff;
   border: 1px solid #d9d9d9;
   clear: both;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: $base-font-size;
+  margin-bottom: $base-font-size * 2;
   position: relative;
 
   @media (min-width: 48em) {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: $base-font-size * 0.4;
+    margin-right: $base-font-size * 0.4;
   }
+}
 
-  &.single {
-    margin-left: 0;
-    margin-right: 0;
-  }
+.portlet-title {
+  background: #efefef;
+  border-bottom: 1px solid #d9d9d9;
+  height: 36px;
 
-  &.first {
-    margin-left: 0;
-  }
+  h4 {
+    margin: 0;
+    margin-left: 10px;
+    text-transform: uppercase;
+    line-height: 37px;
+    font-weight: 400;
+    font-size: 1em;
 
-  &.last {
-    margin-right: 0;
-  }
-
-  .portlet-title {
-    background: #f6f6f6;
-    border-bottom: 1px solid #CDCDCD;
-    height: 36px;
-
-    h4 {
-      margin: 0;
-      margin-left: 10px;
-      text-transform: uppercase;
-      line-height: 37px;
-      font-weight: 400;
-      font-size: 1em;
-
-      .fa {
-        border-right: 1px solid #CDCDCD;
-        padding: 10px;
-        padding-left: 0;
-        margin-right: 10px;
-        position: relative;
-        top: 0px;
-      }
+    .fa {
+      border-right: 1px solid #cdcdcd;
+      padding: 10px;
+      padding-left: 0;
+      margin-right: 10px;
+      position: relative;
+      top: 0px;
     }
   }
+}
 
-  .portlet-body {
-    font-size: 14px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
+.portlet-body {
+  font-size: 14px;
+  padding: 0 $base-font-size;
 }

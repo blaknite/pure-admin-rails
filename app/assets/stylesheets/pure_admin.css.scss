@@ -1,3 +1,5 @@
+$base-font-size: 16px;
+
 @import 'pure_admin/shell.css.scss';
 @import 'pure_admin/forms.css.scss';
 @import 'pure_admin/portlets.css.scss';
@@ -5,5 +7,8 @@
 @import 'pure_admin/flash_messages.css.scss';
 @import 'pure_admin/pagination.css.scss';
 @import 'pure_admin/buttons.css.scss';
-@import 'pure_admin/details_panel.css.scss';
+@import 'pure_admin/details_panels.css.scss';
+@import 'pure_admin/breadcrumbs.css.scss';
+@import 'pure_admin/tags.css.scss';
+@import 'pure_admin/scopes.css.scss';
 @import 'pure_admin/auth.css.scss';

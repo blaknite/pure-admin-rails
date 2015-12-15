@@ -14,23 +14,23 @@
 
 <body>
   <div id="wrap">
-    <header id="top-menu" class="pure-menu pure-menu-horizontal pure-menu-fixed">
-      <div id="side-menu-link" class="side-menu-link" onClick="$('#wrap').toggleClass('active');">
-        <span class="fa fa-bars"></span>
-      </div>
+    <header id="main-header">
+      <h1 class="pure-menu-heading">
+        <%= link_to 'Admin Panel', admin_root_path %>
+      </h1>
 
-      <%= link_to 'Admin Panel', admin_root_path, class: 'pure-menu-heading' %>
-
-      <ul class="pure-menu-list">
-        <li class="pure-menu-item">
-          <%= link_to root_path, class: 'pure-menu-link' do %>
-            <span class="fa fa-external-link"></span>
-          <% end %>
-        </li>
-      </ul>
+      <nav id="account-menu" class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item">
+            <%= link_to root_path, class: 'pure-menu-link' do %>
+              <span class="fa fa-external-link"></span>
+            <% end %>
+          </li>
+        </ul>
+      </nav>
     </header>
 
-    <nav id="side-menu" class="pure-menu">
+    <nav id="main-menu" class="pure-menu pure-menu-horizontal pure-menu-fixed">
       <ul class="pure-menu-list">
         <li class="pure-menu-item">
           <%= link_to admin_root_path, class: 'pure-menu-link' do %>
@@ -40,27 +40,27 @@
       </ul>
     </nav>
 
+    <div id="breadcrumbs">
+      <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> '), truncate: 16, link_last_crumb: false %>
+    </div>
+
+    <div id="back-to-top">
+      <span class="fa fa-chevron-up"></span> <span class="middle">Back to top</span> <span class="fa fa-chevron-up"></span>
+    </div>
+
+    <div id="flashes" class="fixed">
+      <% flash.each do |type, message| %>
+      <div class="flash <%= type %>" onclick="Admin.remove_flash(this);"><%= message %></div>
+      <% end %>
+    </div>
+
     <section id="main">
-      <h1 id="main-title">Dashboard</h1>
-
-      <section id="main-breadcrumbs">
-        <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> ') %>
-      </section>
-
-      <section id="main-content">
-        <div id="flashes">
-          <% flash.each do |type, message| %>
-            <div class="flash <%= type %>"><%= message %></div>
-          <% end %>
-        </div>
-
-        <%= yield %>
-      </section>
-
-      <footer>
-        &copy; <%= Time.now.year %> Grant Colegate. All rights reserved. <span style="float: right;" class="hidden-sm">This site is built with &lt;3 using Pure 0.6.0</span>
-      </footer>
+      <%= yield %>
     </section>
+
+    <footer id="main-footer">
+      &copy; <%= Time.now.year %> Grant Colegate. All rights reserved. <span style="float: right;" class="hidden-sm">This site is built with &lt;3 using Pure 0.6.0</span>
+    </footer>
   </div>
 </body>
 

@@ -3,24 +3,22 @@ div.pagination-info {
 
   @media (min-width: 48em) {
     float: left;
-    margin: 2em 0;
     font-size: 12px;
-    padding: 4px 0;
     display: block;
     color: #777777;
+    line-height: 2em;
   }
 }
 
 nav.pagination {
   font-size: 12px;
-  margin: 2em 0;
   float: right;
   text-transform: uppercase;
   line-height: 100%;
 
   span {
     display: inline-block;
-    background: #f8f8f8;
+    background: #fefefe;
     border: 1px solid #dbdbdb;
     height: 20px;
 
@@ -29,7 +27,12 @@ nav.pagination {
     }
 
     &.prev, &.next {
+      position: relative;
+      top: 1px;
+
       a {
+        position: relative;
+        top: -1px;
         font-family: 'FontAwesome';
       }
     }
