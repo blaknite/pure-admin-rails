@@ -10,6 +10,7 @@
 
   div.details-row {
     margin: $base-font-size * 0.5 0;
+    word-wrap: break-word;
 
     @media (min-width: 48em) {
       padding-left: $base-font-size * 12;
@@ -35,6 +36,7 @@
     img {
       vertical-align: top;
       border: 2px solid #cccccc;
+      max-width: 100%;
     }
   }
 }

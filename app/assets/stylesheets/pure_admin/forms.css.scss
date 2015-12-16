@@ -4,6 +4,29 @@
   label {
     font-size: 14px;
   }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="week"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  textarea,
+  select {
+    margin-bottom: 0;
+  }
+
+  .hint, .error {
+    word-wrap: break-word;
+  }
 }
 
 .pure-form-aligned {
@@ -17,6 +40,8 @@
       line-height: 2.4em;
       float: none;
       text-align: left;
+      width: auto;
+      margin-bottom: 0;
 
       @media (min-width: 48em) {
         width: $base-font-size * 11;
