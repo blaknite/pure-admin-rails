@@ -1,5 +1,14 @@
 #auth {
-  width: 320px;
+  width: 288px;
   margin: 0 auto;
   margin-top: 4em;
+
+  .portlet {
+    margin-bottom: $base-font-size;
+  }
+
+  .other-links {
+    text-align: center;
+    font-size: 0.8em;
+  }
 }
