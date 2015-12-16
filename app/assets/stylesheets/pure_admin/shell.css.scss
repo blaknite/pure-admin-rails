@@ -160,7 +160,7 @@ h4, h5, h6 {
 #main-menu {
   top: 48px;
   background: #50a8d1;
-  height: 32px;
+  height: 40px;
   font-size: 14px;
   border-bottom: 1px solid darken(#50a8d1, 10%);
   z-index: 8;
@@ -171,18 +171,40 @@ h4, h5, h6 {
        -o-transition: all 0.1s linear;
           transition: all 0.1s linear;
 
+  @media (min-width: 48em) {
+    height: 32px;
+  }
+
   ul.pure-menu-list {
-    overflow-x: scroll;
-    width: 100%;
-    height: 64px;
-    padding-right: 64px;
+    height: 40px;
+    position: relative;
+    left: 0;
+    top: 0;
+    -webkit-transition: all 0.1s linear;
+       -moz-transition: all 0.1s linear;
+        -ms-transition: all 0.1s linear;
+         -o-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+
+    @media (min-width: 48em) {
+      height: 32px;
+    }
   }
 
   .pure-menu-link {
     color: #ffffff;
+    padding: 0.8em 1em;
+
+    @media (min-width: 48em) {
+      padding: 0.5em 1em;
+    }
 
     &:hover {
       background: darken(#50a8d1, 10%);
+    }
+
+    &:active, &:focus {
+      background: darken(#50a8d1, 5%);
     }
 
     .fa {
@@ -190,22 +212,35 @@ h4, h5, h6 {
     }
   }
 
-  .fade {
+  .fade-left, .fade-right {
     position: absolute;
     top: 0;
-    right: 0;
     width: 64px;
-    height: 32px;
-    background: image-url('menu-fade.png');
+    height: 40px;
     color: #ffffff;
-    text-align: right;
     font-size: 1.5em;
-    padding-right: 0.5em;
-    line-height: 1.5em;
+    line-height: 1.9em;
+    cursor: pointer;
+    display: none;
 
-    .fa {
-      opacity: 0.75;
+    @media (min-width: 48em) {
+      height: 32px;
+      line-height: 1.5em;
     }
+  }
+
+  .fade-left {
+    left: 0;
+    padding-left: 0.5em;
+    text-align: left;
+    background: image-url('menu-fade-left.png');
+  }
+
+  .fade-right {
+    right: 0;
+    padding-right: 0.5em;
+    text-align: right;
+    background: image-url('menu-fade-right.png');
   }
 }
 

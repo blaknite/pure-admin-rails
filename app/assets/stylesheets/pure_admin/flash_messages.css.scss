@@ -3,19 +3,27 @@
     position: fixed;
     width: 100%;
     z-index: 7;
-    top: 106px;
+    top: 114px;
     padding: $base-font-size;
     -webkit-transition: all 0.1s linear;
        -moz-transition: all 0.1s linear;
         -ms-transition: all 0.1s linear;
          -o-transition: all 0.1s linear;
             transition: all 0.1s linear;
+
+    @media (min-width: 48em) {
+      top: 106px;
+    }
   }
 }
 
 #wrap.no-header {
   #flashes.fixed {
-    top: 58px;
+    top: 66px;
+
+    @media (min-width: 48em) {
+      top: 58px;
+    }
   }
 }
 
