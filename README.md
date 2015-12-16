@@ -29,3 +29,8 @@ rails generate pure_admin:simple_form
 ```
 
 Then edit ```app/views/layouts/admin.html.erb``` to your liking.
+
+Dependencies
+============
+
+Pure CSS, jQuery and waypoints.js.
