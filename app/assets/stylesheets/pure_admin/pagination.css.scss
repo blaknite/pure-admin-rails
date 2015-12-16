@@ -1,20 +1,23 @@
 div.pagination-info {
-  display: none;
+  font-size: 12px;
+  display: block;
+  color: #777777;
+  line-height: 3em;
 
-  @media (min-width: 48em) {
+  @media (min-width: 35.5em) {
     float: left;
-    font-size: 12px;
-    display: block;
-    color: #777777;
     line-height: 2em;
   }
 }
 
 nav.pagination {
   font-size: 12px;
-  float: right;
   text-transform: uppercase;
   line-height: 100%;
+
+  @media (min-width: 35.5em) {
+    float: right;
+  }
 
   span {
     display: inline-block;
