@@ -15,13 +15,13 @@
 .portlet-title {
   background: #efefef;
   border-bottom: 1px solid #d9d9d9;
-  height: 36px;
+  min-height: 36px;
+  padding: $base-font-size * 0.4 $base-font-size * 0.8;
 
   h4 {
     margin: 0;
-    margin-left: 10px;
     text-transform: uppercase;
-    line-height: 37px;
+    line-height: 1.4em;
     font-weight: 400;
     font-size: 1em;
 
