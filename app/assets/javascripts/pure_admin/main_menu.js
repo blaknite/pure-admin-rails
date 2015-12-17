@@ -104,8 +104,8 @@ $('document').ready(function() {
       }
 
       // toggle the navigation arrows
-      right_arrow.toggle(new_offset > -total_offset + 5);
-      left_arrow.toggle(new_offset < 0 - 5);
+      right_arrow.toggle(new_offset > -total_offset + 16);
+      left_arrow.toggle(new_offset < 0 - 16);
     },
     threshold: 10,
     allowPageScroll: 'vertical'
