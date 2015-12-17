@@ -1,4 +1,4 @@
-$('docuemnt').ready(function() {
+$('document').ready(function() {
   if ( $('#main-menu .pure-menu-list').width() > $(document).width() ) {
     $('#main-menu .fade-right').show();
   }

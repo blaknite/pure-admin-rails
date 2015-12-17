@@ -64,6 +64,8 @@
     }
 
     .hint, .error {
+      margin-left: 0;
+
       @media (min-width: 48em) {
         margin-left: $base-font-size * 12;
       }

@@ -1,4 +1,4 @@
-$('docuemnt').ready(function() {
+$('document').ready(function() {
   $('#wrap').waypoint(function(direction) {
     if ( direction == 'down') {
       $('#back-to-top').show();
