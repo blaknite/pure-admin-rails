@@ -48,11 +48,7 @@
       <span class="fa fa-chevron-up"></span> <span class="middle">Back to top</span> <span class="fa fa-chevron-up"></span>
     </div>
 
-    <div id="flashes" class="fixed">
-      <% flash.each do |type, message| %>
-      <div class="flash <%= type %>" onclick="Admin.remove_flash(this);"><%= message %></div>
-      <% end %>
-    </div>
+    <div id="flashes" class="fixed"></div>
 
     <section id="main">
       <%= yield %>
@@ -68,4 +64,11 @@
 <!--[if lt IE 9]>
   <%= javascript_include_tag 'http://html5shiv.googlecode.com/svn/trunk/html5.js' %>
 <![endif]-->
+<script type="text/javascript">
+  $('document').ready(function() {
+    <% flash.each do |type, message| %>
+      PureAdmin.flash_messages.create('<%= type %>', '<%= message %>');
+    <% end %>
+  });
+</script>
 </html>
