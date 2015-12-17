@@ -1,53 +1,119 @@
+body {
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
 .modal-container {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   width: 100%;
   height: 100%;
+}
 
-  &.hidden {
-    display: none;
+.modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+}
+
+.modal-loading {
+  background: image-url('pending.gif');
+  background-size: cover;
+  margin: 0 auto;
+  top: 146px;
+  width: 96px;
+  height: 48px;
+  position: relative;
+  top: 130px;
+  opacity: 0;
+  -webkit-transition: all 0.2s linear;
+     -moz-transition: all 0.2s linear;
+      -ms-transition: all 0.2s linear;
+       -o-transition: all 0.2s linear;
+          transition: all 0.2s linear;
+}
+
+.modal {
+  background: #ffffff;
+  border: 4px solid #cccccc;
+  width: 90%;
+  max-width: 480px;
+  max-height: 94%;
+  margin: 0 auto;
+  position: relative;
+  top: 16px;
+  overflow-y: scroll;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: 35.5em) {
+    top: 75px;
+    width: 480px;
+    max-width: none;
   }
 
-  .modal {
-    background: #ffffff;
-    border: 4px solid #cccccc;
-    width: 250px;
-    margin: 0 auto;
-    margin-top: 100px;
-    overflow: hidden;
-    position: relative;
+  > span.fa-question-circle,
+  > span.fa-info-circle,
+  > span.fa-exclamation-circle {
+    color: #f4f4f4;
+    position: absolute;
+    bottom: -0.2em;
+    left: -0.2em;
+    font-size: 12em;
+  }
+}
 
-    span.fa-question-circle {
-      color: #f4f4f4;
-      position: absolute;
-      top: -0.2em;
-      right: -0.2em;
-      font-size: 12em;
-    }
+.modal-body {
+  z-index: 1001;
+  position: relative;
+  margin: 0 1em;
+}
 
-    @media (min-width: 48em) {
-      min-width: 400px
-    }
+.modal-controls {
+  padding: 1em;
+  padding-top: 0;
+  z-index: 1001;
+  position: relative;
+  text-align: right;
 
-    p {
-      margin: 1.5em 1em;
-      z-index: 1001;
-      position: relative;
-    }
+  .pure-button {
+    margin-left: 0.5em;
+    min-width: 70px;
+  }
+}
 
-    .controls {
-      padding: 1em;
-      padding-top: 0;
-      z-index: 1001;
-      position: relative;
+.modal.confirm, .modal.alert {
+  @media (min-width: 35.5em) {
+    top: 130px;
+  }
 
-      .pure-button {
-        margin-right: 0.5em;
-        min-width: 70px;
-      }
-    }
+  @media (min-width: 48em) {
+    width: 480px;
+  }
+
+  .modal-body {
+    margin: 1.5em 1em;
+  }
+}
+
+.modal.ajax {
+  @media (min-width: 48em) {
+    top: 130px;
+    width: 35.5em;
+  }
+
+  @media (min-width: 64em) {
+    width: 48em;
+  }
+
+  @media (min-width: 80em) {
+    min-width: 64em;
   }
 }
