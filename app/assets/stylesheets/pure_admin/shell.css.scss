@@ -180,11 +180,14 @@ h4, h5, h6 {
     position: relative;
     left: 0;
     top: 0;
-    -webkit-transition: all 0.1s linear;
-       -moz-transition: all 0.1s linear;
-        -ms-transition: all 0.1s linear;
-         -o-transition: all 0.1s linear;
-            transition: all 0.1s linear;
+
+    &.with-animation {
+      -webkit-transition: all 0.1s linear;
+         -moz-transition: all 0.1s linear;
+          -ms-transition: all 0.1s linear;
+           -o-transition: all 0.1s linear;
+              transition: all 0.1s linear;
+    }
 
     @media (min-width: 48em) {
       height: 32px;
