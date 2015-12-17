@@ -49,8 +49,8 @@ $('document').ready(function() {
     }
 
     // toggle the navigation arrows
-    right_arrow.toggle(new_offset > -total_offset + offset);
-    left_arrow.toggle(new_offset < 0 - offset);
+    right_arrow.toggle(menu_list.attr('data-offset') > -total_offset + 16);
+    left_arrow.toggle(menu_list.attr('data-offset') < 0 - 16);
   });
 
   $('#main-menu').swipe({
@@ -104,8 +104,8 @@ $('document').ready(function() {
       }
 
       // toggle the navigation arrows
-      right_arrow.toggle(new_offset > -total_offset + 16);
-      left_arrow.toggle(new_offset < 0 - 16);
+      right_arrow.toggle(menu_list.attr('data-offset') > -total_offset + 16);
+      left_arrow.toggle(menu_list.attr('data-offset') < 0 - 16);
     },
     threshold: 10,
     allowPageScroll: 'vertical'
