@@ -90,9 +90,7 @@ body {
 }
 
 .modal.confirm, .modal.alert {
-  @media (min-width: 35.5em) {
-    top: 130px;
-  }
+  top: 130px;
 
   @media (min-width: 48em) {
     width: 480px;
