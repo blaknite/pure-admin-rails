@@ -1,5 +1,8 @@
 .details-panel {
   font-size: 14px;
+}
+
+.details-panel-body {
   padding-bottom: $base-font-size;
   padding: 0 0.5em 1em 0.5em;
 
@@ -7,10 +10,9 @@
     padding: 0;
     padding-bottom: 1em;
   }
-
 }
 
-.details-row {
+.details-item {
   margin: $base-font-size * 0.5 0;
   word-wrap: break-word;
 
@@ -42,7 +44,7 @@
   }
 }
 
-.details-controls {
+.details-panel-controls {
   font-size: 14px;
   padding: $base-font-size 0;
   border-top: 2px solid #e8e8e8;
@@ -58,11 +60,11 @@
 }
 
 .portlet-body {
-  .details-panel {
+  .details-panel-body {
     padding: 1em 0;
   }
 
-  .details-controls {
+  .details-panel-controls {
     background: #f4f4f4;
     margin: 0 $base-font-size * -1;
     padding: $base-font-size * 0.5 $base-font-size;
