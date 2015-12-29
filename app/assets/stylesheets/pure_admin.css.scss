@@ -1,5 +1,8 @@
-$base-font-size: 16px;
-
+/*
+ *= require font-awesome
+ */
+@import 'pure_admin/variables.css.scss';
+@import 'pure_admin/utilities.css.scss';
 @import 'pure_admin/shell.css.scss';
 @import 'pure_admin/main_menu.css.scss';
 @import 'pure_admin/side_menu.css.scss';
