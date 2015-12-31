@@ -27,6 +27,20 @@
   .hint, .error {
     word-wrap: break-word;
   }
+
+  .pure-admin-colour-picker.minicolors-input {
+    height: auto;
+    width: 6em;
+    margin-left: 3.5em;
+  }
+
+  .minicolors .minicolors-swatch {
+    left: 0;
+    top: 0;
+    width: 3em;
+    height: 2.4em;
+    cursor: pointer;
+  }
 }
 
 .pure-form-aligned {
