@@ -5,9 +5,13 @@ PureAdmin.modals = {
     event.preventDefault();
 
     var element = $(event.target).closest('*[modal]');
-    var modal_type = element.attr('modal');
+    var modalType = element.attr('modal');
 
-    switch ( modal_type ) {
+    switch ( modalType ) {
+      case 'ajax':
+        PureAdmin.modals._ajax(element);
+        break;
+
       case 'alert':
         PureAdmin.modals._alert(element);
         break;
@@ -16,157 +20,164 @@ PureAdmin.modals = {
         PureAdmin.modals._confirm(element);
         break;
 
-      case 'ajax':
-        PureAdmin.modals._ajax(element);
+      case 'html':
+        PureAdmin.modals._html(element);
         break;
 
       default:
-        PureAdmin.flash_messages.create('alert', modal_type + ' is not a valid modal type.');
+        PureAdmin.flashMessages.create('alert', modalType + ' is not a valid modal type.');
         break;
     }
 
     return false;
   },
 
-  _alert: function (element) {
-    var text = element.data('modal-text') || 'Oh no!';
-    var ok_callback = element.data('modal-ok-callback');
+  _ajax: function (element) {
+    var icon = element.data('modal-icon') || 'fa-info-circle';
+    var url = element.data('modal-url') || element.attr('href');
+    var requestMethod = element.data('modal-request-method') || 'get';
+    var requestData = element.data('modal-request-data') || {};
 
-    var time = new Date().getTime();
+    if ( url === undefined ) {
+      PureAdmin.flashMessages.create('alert', 'You need to pass a URL to AJAX modals.');
+      return false;
+    }
+
     var html = '\
-      <div id="modal-container-' + time + '" class="modal-container">\
-        <div class="modal-background"></div>\
-        <div class="modal alert">\
-          <span class="fa fa-exclamation-circle"></span>\
-          <div class="modal-body">\
-            <p>' + text + '</p>\
-          </div>\
-          <div class="modal-controls">\
-            <a class="pure-button pure-button-primary" rel="ok-button">OK</a>\
-          </div>\
-        </div>\
+    <span class="fa ' + icon + '"></span>\
+    ';
+
+    var modal = PureAdmin.modals._create('ajax', html);
+
+    $.ajax({
+      url:  url,
+      type: requestMethod,
+      data: requestData,
+      timeout: 40000,
+      success: function(response) {
+        modal.find('.modal').append('<div class="modal-body">' + response + '</div>').show();
+        modal.find('.modal-background').on('click', function(event) { PureAdmin.modals._destroy(modal) });
+      },
+      error: function(response) {
+        PureAdmin.modals._destroy(modal);
+        PureAdmin.flashMessages.create('error', 'An error occured when loading the remote URL.');
+      }
+    });
+
+    return false;
+  },
+
+  _alert: function (element) {
+    var icon = element.data('modal-icon') || 'fa-exclamation-circle';
+    var text = element.data('modal-text') || 'Oh no!';
+    var yesCallback = element.data('modal-yes-callback');
+
+    var html = '\
+      <span class="fa ' + icon + '"></span>\
+      <div class="modal-body">\
+        <p>' + text + '</p>\
+      </div>\
+      <div class="modal-controls">\
+        <a class="pure-button pure-button-primary" modal-button="yes">OK</a>\
       </div>\
     ';
 
-    $('body').addClass('no-scroll').append(html);
+    var modal = PureAdmin.modals._create('alert', html);
 
-    $('#modal-container-' + time + ' *[rel=ok-button]').on('click', function() {
-      if ( ok_callback !== undefined ) ok_callback();
-      $('#modal-container-' + time).remove();
-      $('body').removeClass('no-scroll');
-    });
-    $('#modal-container-' + time + ' .modal-background').on('click', function(event) {
-      $('#modal-container-' + time).remove();
-      $('body').removeClass('no-scroll');
+    modal.find('*[modal-button=yes], .modal-background').on('click', function() {
+      if ( yesCallback !== undefined ) yesCallback();
+      PureAdmin.modals._destroy(modal);
     });
 
     return false;
   },
 
   _confirm: function (element) {
+    var icon = element.data('modal-icon') || 'fa-question-circle';
     var text = element.data('modal-text') || 'Are you sure?';
-    var url = element.data('modal-url') || element.closest('a').attr('href');
-    var request_method = element.data('modal-request-method') || 'get';
-    var yes_callback = element.data('modal-yes-callback');
-    var no_callback = element.data('modal-no-callback');
+    var url = element.data('modal-url') || element.attr('href');
+    var requestMethod = element.data('modal-request-method') || 'get';
+    var yesCallback = element.data('modal-yes-callback');
+    var noCallback = element.data('modal-no-callback');
 
-    if ( yes_callback === undefined ) {
-      var yes_button = '<a href="' + url + '" class="pure-button pure-button-primary"\
-        rel="yes-button" data-method="' + request_method + '">Yes</a>';
+    if ( yesCallback === undefined ) {
+      var yesButton = '<a href="' + url + '" class="pure-button pure-button-primary"\
+        modal-button="yes" data-method="' + requestMethod + '">Yes</a>';
     } else {
-      var yes_button = '<a class="pure-button pure-button-primary" rel="yes-button">Yes</a>';
+      var yesButton = '<a class="pure-button pure-button-primary" modal-button="yes">Yes</a>';
     }
 
-    var time = new Date().getTime();
     var html = '\
-      <div id="modal-container-' + time + '" class="modal-container">\
-        <div class="modal-background"></div>\
-        <div class="modal confirm">\
-          <span class="fa fa-question-circle"></span>\
-          <div class="modal-body">\
-            <p>' + text + '</p>\
-          </div>\
-          <div class="modal-controls">\
-            <a class="pure-button" rel="no-button">No</a>\
-            ' + yes_button + '\
-          </div>\
-        </div>\
+      <span class="fa ' + icon + '"></span>\
+      <div class="modal-body">\
+        <p>' + text + '</p>\
+      </div>\
+      <div class="modal-controls">\
+        <a class="pure-button" modal-button="no">No</a>\
+        ' + yesButton + '\
       </div>\
     ';
 
-    $('body').addClass('no-scroll').append(html);
+    var modal = PureAdmin.modals._create('confirm', html);
 
-    $('#modal-container-' + time + ' *[rel=yes-button]').on('click', function() {
-      if ( yes_callback !== undefined ) yes_callback();
-      $('#modal-container-' + time).remove();
-      $('body').removeClass('no-scroll');
+    modal.find('*[modal-button=yes]').on('click', function() {
+      if ( yesCallback !== undefined ) yesCallback();
+      PureAdmin.modals._destroy(modal);
     });
-    $('#modal-container-' + time + ' *[rel=no-button]').on('click', function() {
-      if ( no_callback !== undefined ) no_callback();
-      $('#modal-container-' + time).remove();
-      $('body').removeClass('no-scroll');
-    });
-    $('#modal-container-' + time + ' .modal-background').on('click', function(event) {
-      if ( no_callback !== undefined ) no_callback();
-      $('#modal-container-' + time).remove();
-      $('body').removeClass('no-scroll');
+    modal.find('*[modal-button=no], .modal-background').on('click', function() {
+      if ( noCallback !== undefined ) noCallback();
+      PureAdmin.modals._destroy(modal);
     });
 
     return false;
   },
 
-  _ajax: function (element) {
-    var text = element.data('modal-text') || 'Are you sure?';
-    var url = element.data('modal-url') || element.closest('a').attr('href');
-    var request_method = element.data('modal-request-method') || 'get';
-    var request_data = element.data('modal-request-data') || {};
+  _html: function (element) {
+    var icon = element.data('modal-icon') || 'fa-info-circle';
+    var innerHtml = element.data('modal-html') || '';
 
     if ( url === undefined ) {
-      PureAdmin.flash_messages.create('alert', 'You need to pass a URL to AJAX modals.');
+      PureAdmin.flashMessages.create('alert', 'You need to pass a URL to AJAX modals.');
       return false;
     }
 
-    var time = new Date().getTime();
     var html = '\
-      <div id="modal-container-' + time + '" class="modal-container">\
+      <span class="fa ' + icon + '"></span>\
+      ' + element.data('modal-html') + '\
+    ';
+
+    var modal = PureAdmin.modals._create('html', html);
+
+    modal.find('.modal-background').on('click', function(event) { PureAdmin.modals._destroy(modal) });
+
+    return false;
+  },
+
+  _create: function(type, innerHtml) {
+    var timestamp = new Date().getTime();
+    var html = '\
+      <div id="modal-container-' + timestamp + '" class="modal-container">\
         <div class="modal-background"></div>\
         <div class="modal-loading"></div>\
-        <div class="modal ajax hidden">\
-          <span class="fa fa-info-circle"></span>\
+        <div class="modal ' + type + '">\
+          ' + innerHtml + '\
         </div>\
       </div>\
     ';
 
     $('body').addClass('no-scroll').append(html);
 
-    setTimeout(function() {
-      // if the wait is longer than the loading timeout we show a loading gif
-      $('#modal-container-' + time + ' .modal-loading').css('opacity', 1);
-    }, PureAdmin.LOADING_TIMEOUT);
+    var modal = $('#modal-container-' + timestamp);
 
-    $.ajax({
-      url:  url,
-      type: request_method,
-      data: request_data,
-      timeout: 40000,
-      success: function(response) {
-        $('#modal-container-' + time + ' .modal-loading').remove();
-        $('#modal-container-' + time + ' .modal').append('<div class="modal-body">' + response + '</div>')
-          .removeClass('hidden');
+    // if the wait is longer than the loading timeout we show a loading gif
+    setTimeout(function() { modal.find('.modal-loading').css('opacity', 1) }, PureAdmin.LOADING_TIMEOUT);
 
-        $('#modal-container-' + time + ' .modal-background').on('click', function(event) {
-          $('#modal-container-' + time).remove();
-          $('body').removeClass('no-scroll');
-        });
-      },
-      error: function(response) {
-        $('body').removeClass('no-scroll');
-        $('#modal-container-' + time).remove();
-        PureAdmin.flash_messages.create('error', 'An error occured when loading the remote URL.');
-      }
-    });
+    return modal;
+  },
 
-    return false;
+  _destroy: function(modal) {
+    modal.remove();
+    $('body').removeClass('no-scroll');
   }
 }
 
