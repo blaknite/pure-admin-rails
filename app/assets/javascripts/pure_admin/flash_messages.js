@@ -1,13 +1,13 @@
 var PureAdmin = PureAdmin || {};
 
-PureAdmin.flash_messages = {
+PureAdmin.flashMessages = {
   create: function(type, message) {
     $('#flashes').prepend('<div class="flash ' + type + '">' + message + '</div>');
     $('#flashes .flash:not(.bound-close)').addClass('bound-close')
-      .on('click', PureAdmin.flash_messages.remove);
+      .on('click', PureAdmin.flashMessages.destroy);
   },
 
-  remove: function(event) {
+  destroy: function(event) {
     $(event.target).closest('.flash').remove();
   }
 }

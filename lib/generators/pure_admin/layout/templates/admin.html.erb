@@ -67,7 +67,7 @@
 <script type="text/javascript">
   $('document').ready(function() {
     <% flash.each do |type, message| %>
-      PureAdmin.flash_messages.create('<%= type %>', '<%= message %>');
+      PureAdmin.flashMessages.create('<%= type %>', '<%= message %>');
     <% end %>
   });
 </script>
