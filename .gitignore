@@ -1,0 +1,24 @@
+# Ignore private files
+secrets.yml
+database.yml
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+*.sqlite3
+*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+*.log
+*/tmp
+
+/config/database.yml
+# Ignore application configuration
+/config/application.yml
+
+# Files created by specs
+/public/uploads/
+
+# Gemfile.lock (see http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/)
+Gemfile.lock

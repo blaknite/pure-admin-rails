@@ -14,6 +14,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,lib}/**/*", "LICENSE", "README.md"]
 
+  s.add_dependency "jquery-rails"
   s.add_dependency "font-awesome-rails"
   s.add_dependency "pure-css-rails"
   s.add_dependency "pure-css-reset-rails"

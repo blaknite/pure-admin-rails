@@ -65,27 +65,27 @@
   }
 
   &.success {
-    color: #3c763d;
-    background-color: #c2e6b3;
-    border-color: #acd69a;
+    color: $text-success;
+    background-color: $background-success;
+    border-color: $border-success;
   }
 
   &.notice {
-    color: #31708f;
-    background-color: #bbdbeb;
-    border-color: #a8cde0;
+    color: $text-notice;
+    background-color: $background-notice;
+    border-color: $border-notice;
   }
 
   &.alert {
-    color: #8a6d3b;
-    background-color: #ece7cd;
-    border-color: #ddd6b2;
+    color: $text-alert;
+    background-color: $background-alert;
+    border-color: $border-alert;
   }
 
   &.error {
-    color: #a94442;
-    background-color: #e9c5c5;
-    border-color: #deb0b0;
+    color: $text-error;
+    background-color: $background-error;
+    border-color: $border-error;
   }
 
   &.with-icon {

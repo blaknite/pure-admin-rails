@@ -140,9 +140,9 @@ PureAdmin.modals = {
     $('body').addClass('no-scroll').append(html);
 
     setTimeout(function() {
-      // if the wait is longer than 300ms we show a loading gif
+      // if the wait is longer than the loading timeout we show a loading gif
       $('#modal-container-' + time + ' .modal-loading').css('opacity', 1);
-    }, 300);
+    }, PureAdmin.LOADING_TIMEOUT);
 
     $.ajax({
       url:  url,
