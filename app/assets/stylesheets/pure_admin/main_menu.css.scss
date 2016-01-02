@@ -2,10 +2,12 @@
   top: 48px;
   background: #50a8d1;
   height: 40px;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
   font-size: 14px;
   border-bottom: 1px solid darken(#50a8d1, 10%);
   z-index: 8;
-  overflow: hidden;
   -webkit-transition: all 0.1s linear;
      -moz-transition: all 0.1s linear;
       -ms-transition: all 0.1s linear;
@@ -14,6 +16,11 @@
 
   @media (min-width: 48em) {
     height: 32px;
+  }
+
+  nav {
+    padding: 0;
+    height: 100px;
   }
 
   ul.pure-menu-list {
@@ -64,27 +71,39 @@
     color: #ffffff;
     font-size: 1.5em;
     line-height: 1.9em;
-    cursor: pointer;
+    pointer-events: none;
     display: none;
 
     @media (min-width: 48em) {
       height: 32px;
       line-height: 1.5em;
     }
+
+    .fa {
+      cursor: pointer;
+      pointer-events: auto;
+      padding: 0.25em;
+    }
   }
 
   .fade-left {
     left: 0;
-    padding-left: 0.5em;
     text-align: left;
     background: image-url('menu-fade-left.png');
+
+    .fa {
+      padding-left: 0.5em;
+    }
   }
 
   .fade-right {
     right: 0;
-    padding-right: 0.5em;
     text-align: right;
     background: image-url('menu-fade-right.png');
+
+    .fa {
+      padding-right: 0.5em;
+    }
   }
 }
 

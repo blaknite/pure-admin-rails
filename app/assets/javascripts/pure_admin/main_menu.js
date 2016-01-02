@@ -4,110 +4,52 @@ $('document').ready(function() {
   }
 
   $('*[rel=main-menu-scroll]').on('click', function(event) {
-    var element = $(event.target);
-
-    var menu_list = element.closest('.pure-menu').find('.pure-menu-list');
-    var left_arrow = element.closest('.pure-menu').find('.fade-left');
-    var right_arrow = element.closest('.pure-menu').find('.fade-right');
+    var menu = $('#main-menu nav');
+    var menuList = menu.find('.pure-menu-list');
 
     // do not scroll if list is shorter than document
-    if ( menu_list.width() < $(document).width() ) return;
+    if ( menuList.width() < $(document).width() ) return;
 
     // determine which scroll button was clicked
     var direction = $(event.target).closest('.fade-left, .fade-right').data('direction');
 
     // determine how far to scroll each click and the extremes of scrolling
-    var total_offset = menu_list.width() - $(document).width();
-    var min_offset = $(document).width() / 3;
-    var offset = total_offset / 4;
-    if ( total_offset < min_offset ) offset = total_offset;
-    if ( offset < min_offset ) offset = min_offset;
+    var maxOffset = menuList.width() - $(document).width();
+    var minStep = $(document).width() / 3;
+    var offset = maxOffset / 4;
+    if ( maxOffset < minStep ) offset = maxOffset;
+    if ( offset < minStep ) offset = minStep;
 
-    // how far we have already scrolled is stored on the list
-    var current_offset = parseInt(menu_list.attr('data-offset'));
-    if ( isNaN(current_offset) ) current_offset = 0;
-
-    // how far we have moved this click
-    var new_offset = 0;
+    console.log(menu.scrollLeft());
 
     if ( direction == 'left' ) {
       // we're scrolling left
-      new_offset = current_offset + offset;
-      if ( new_offset > -offset ) {
-        menu_list.attr('data-offset', 0).css('left', '0px');
+      if ( menu.scrollLeft() - offset < offset / 2 ) {
+        menu.animate({ scrollLeft: 0 }, 100);
       } else {
-        menu_list.attr('data-offset', new_offset).css('left', new_offset + 'px');
+        menu.animate({ scrollLeft: menu.scrollLeft() - offset }, 100);
       }
     } else if ( direction == 'right' ) {
       // we're scrolling right
-      new_offset = current_offset - offset;
-      if ( new_offset < -total_offset + offset ) {
-        menu_list.attr('data-offset', -total_offset).css('left', '-' + total_offset + 'px');
+      if ( menu.scrollLeft() + offset > maxOffset - offset / 2 ) {
+        menu.animate({ scrollLeft: maxOffset }, 300);
       } else {
-        menu_list.attr('data-offset', new_offset).css('left', new_offset + 'px');
+        menu.animate({ scrollLeft: menu.scrollLeft() + offset }, 100);
       }
     }
+  });
+
+  $('#main-menu nav').on('scroll', function(event) {
+    var menu = $('#main-menu nav');
+    var menuList = menu.find('.pure-menu-list');
+    var leftArrow = $('#main-menu .fade-left');
+    var rightArrow = $('#main-menu .fade-right');
+
+    // determine how far to scroll each click and the extremes of scrolling
+    var maxOffset = menuList.width() - $(document).width();
 
     // toggle the navigation arrows
-    right_arrow.toggle(menu_list.attr('data-offset') > -total_offset + 16);
-    left_arrow.toggle(menu_list.attr('data-offset') < 0 - 16);
-  });
-
-  $('#main-menu').swipe({
-    swipeStatus: function(event, phase, direction, distance, duration, fingers) {
-      var element = $("#main-menu");
-
-      var menu_list = element.find('.pure-menu-list');
-      var left_arrow = element.find('.fade-left');
-      var right_arrow = element.find('.fade-right');
-
-      // do not scroll if list is shorter than document
-      if ( menu_list.width() < $(document).width() ) return;
-
-
-      // determine how far to scroll each click and the extremes of scrolling
-      var total_offset = menu_list.width() - $(document).width();
-
-      // how far we have already scrolled is stored on the list
-      var current_offset = parseInt(menu_list.attr('data-offset'));
-      if ( isNaN(current_offset) ) current_offset = 0;
-
-      // how far we have moved this swipe
-      var new_offset = menu_list.attr('data-temp-offset') || 0;
-
-      if ( phase == 'move') {
-        // disable animation while scrolling
-        menu_list.removeClass('with-animation');
-
-        if ( direction == 'left' ) {
-          // we're scrolling left
-          new_offset = current_offset - distance;
-          if ( new_offset < -total_offset ) {
-            menu_list.attr('data-offset', -total_offset).css('left', '-' + total_offset + 'px');
-          } else {
-            menu_list.attr('data-temp-offset', new_offset).css('left', new_offset + 'px');
-          }
-        } else if ( direction == 'right' ) {
-          // we're scrolling right
-          new_offset = current_offset + distance;
-          if ( new_offset > 0 ) {
-            menu_list.attr('data-offset', 0).css('left', '0px');
-          } else {
-            menu_list.attr('data-temp-offset', new_offset).css('left', new_offset + 'px');
-          }
-        }
-      }
-
-      if ( phase == 'end' ) {
-        menu_list.attr('data-offset', new_offset);
-        menu_list.addClass('with-animation'); // enable animation
-      }
-
-      // toggle the navigation arrows
-      right_arrow.toggle(menu_list.attr('data-offset') > -total_offset + 16);
-      left_arrow.toggle(menu_list.attr('data-offset') < 0 - 16);
-    },
-    threshold: 10,
-    allowPageScroll: 'vertical'
-  });
+    rightArrow.toggle(menu.scrollLeft() < maxOffset);
+    leftArrow.toggle(menu.scrollLeft() > 0);
+  })
 });
