@@ -1,11 +1,49 @@
-# Use this setup block to configure all options available in SimpleForm.
+##
+# This class augments the normal wrapper behaviour and allows the addon wrapper element to be
+# removed if it is not needed.
+# This is designed to be used like so:
+# @example
+#   [in SimpleForm initializer...]
+#   config.wrappers :example do |b|
+#     b.wrapper :addon_wrapper do |bb|
+#       bb.optional :prefix, wrap_with: { tag: :span, class: 'input-addon prefix' }
+#       bb.use :input
+#       bb.optional :suffix, wrap_with: { tag: :span, class: 'input-addon suffix' }
+#     end
+#
+#     b_components = b.to_a.pop
+#     b.to_a << SkinnyWrapper.new(b_components.namespace, b_components.components, b_components.defaults)
+#   end
+class SkinnyWrapper < SimpleForm::Wrappers::Many
+
+  ##
+  # Overrides the super method to check if any addons are supplied.
+  # If they are, it calls super but if not it simply renders the contents without the wrapper.
+  def wrap(input, options, content)
+    return content unless options[:prefix] || options[:suffix]
+    super
+  end
+end
+
+##
+# Tell SimpleForm to use the following custom input types instead of the defaults.
+module SimpleForm
+  class FormBuilder < ActionView::Helpers::FormBuilder
+    map_type :email, to: EmailInput
+    map_type :tel, to: PhoneInput
+  end
+end
+
+##
+# Configure SimpleForm options.
 SimpleForm.setup do |config|
   # Wrappers are used by the form builder to generate a
   # complete input. You can remove any component from the
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :default, class: 'pure-control-group pure-u-24-24', error_class: 'control-group-with-error' do |b|
+  config.wrappers :default, class: 'pure-control-group pure-u-1',
+    error_class: 'control-group-with-error' do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -40,22 +78,6 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label
-    b.wrapper :input_wrapper, tag: :div, class: 'input-wrapper' do |bb|
-      bb.use :input
-      bb.use :hint,  wrap_with: { tag: :div, class: 'hint' }
-      bb.use :error, wrap_with: { tag: :div, class: 'error' }
-    end
-  end
-
-  config.wrappers :addon, class: 'pure-control-group pure-u-24-24', error_class: 'control-group-with-error' do |b|
-    b.use :html5
-    b.use :placeholder
-    b.optional :maxlength
-    b.optional :pattern
-    b.optional :min_max
-    b.optional :readonly
-
-    b.use :label
     b.wrapper :input_wrapper, tag: :div, class: 'input-wrapper pure-g' do |bb|
       bb.wrapper :addon_wrapper, tag: :div, class: 'addon-wrapper pure-u' do |bbb|
         bbb.optional :prefix, wrap_with: { tag: :span, class: 'input-addon prefix' }
@@ -63,8 +85,12 @@ SimpleForm.setup do |config|
         bbb.optional :suffix, wrap_with: { tag: :span, class: 'input-addon suffix' }
       end
 
-      bb.use :hint,  wrap_with: { tag: :span, class: 'pure-u-24-24 hint' }
-      bb.use :error, wrap_with: { tag: :span, class: 'pure-u-24-24 error' }
+      # Replace the above wrapper with our variant
+      bb_components = bb.to_a.pop
+      bb.to_a << SkinnyWrapper.new(bb_components.namespace, bb_components.components, bb_components.defaults)
+
+      bb.use :hint,  wrap_with: { tag: :span, class: 'pure-u-1 hint' }
+      bb.use :error, wrap_with: { tag: :span, class: 'pure-u-1 error' }
     end
   end
 
@@ -112,7 +138,7 @@ SimpleForm.setup do |config|
   # config.item_wrapper_tag = :span
 
   # You can define a class to use in all item wrappers. Defaulting to none.
-  # config.item_wrapper_class = 'pure-control-group'
+  config.item_wrapper_class = 'pure-u'
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }

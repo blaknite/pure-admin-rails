@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
   s.add_dependency "pure-css-reset-rails"
   s.add_dependency "exo2-rails"
   s.add_dependency "crummy"
+  s.add_dependency "simple_form"
 end

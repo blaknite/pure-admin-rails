@@ -42,17 +42,39 @@
       }
     }
 
-    label {
-      line-height: 2.4em;
+    label:not(.addon-label) {
+      line-height: 1.5em;
       margin-bottom: 0;
 
       @media (min-width: 35.5em) {
         width: $base-font-size * 11;
       }
 
-      &.checkbox {
-        width: $base-font-size;
-        margin: 0;
+      &.checkbox,
+      &.radio {
+        margin: 0 1em 0 0;
+        min-width: $base-font-size;
+        width: auto;
+
+        input {
+          margin: -0.2em 0.5em 0 0;
+          width: auto;
+        }
+      }
+    }
+
+    .checkbox,
+    .radio {
+      label {
+        line-height: 2.4em;
+        padding-left: 1.5em;
+        text-align: left;
+        width: $base-font-size * 11;
+
+        input {
+          margin: -0.2em 0.5em 0 -1.5em;
+          width: auto;
+        }
       }
     }
   }
