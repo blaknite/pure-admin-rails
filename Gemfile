@@ -7,6 +7,8 @@ gem 'pure-css-rails'
 gem 'pure-css-reset-rails'
 gem 'exo2-rails', github: 'blaknite/exo2-rails', branch: 'master'
 gem 'crummy', github: 'blaknite/crummy', branch: 'master'
+gem 'simple_form'
+gem 'jquery-minicolors-rails'
 
 group :development, :test do
   gem 'rails'
