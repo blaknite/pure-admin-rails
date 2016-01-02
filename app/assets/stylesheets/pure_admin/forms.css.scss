@@ -36,9 +36,19 @@
   }
 
   .pure-control-group {
+    @media (min-width: 35.5em) {
+      .input-wrapper {
+        margin-left: $base-font-size * 12;
+      }
+    }
+
     label {
       line-height: 2.4em;
       margin-bottom: 0;
+
+      @media (min-width: 35.5em) {
+        width: $base-font-size * 11;
+      }
 
       &.checkbox {
         width: $base-font-size;
@@ -55,6 +65,10 @@
     padding-top: $base-font-size;
     padding-bottom: $base-font-size;
     border-top: 2px solid #e8e8e8;
+
+    @media (min-width: 35.5em) {
+      padding-left: $base-font-size * 12;
+    }
 
     .pure-button {
       margin-right: $base-font-size * 0.25;
