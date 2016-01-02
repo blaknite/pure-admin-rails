@@ -1,21 +1,15 @@
 #main-menu {
-  top: 48px;
-  background: #50a8d1;
-  height: 40px;
+  height: 42px;
   width: 100%;
   padding: 0;
   overflow: hidden;
   font-size: 14px;
-  border-bottom: 1px solid darken(#50a8d1, 10%);
-  z-index: 8;
-  -webkit-transition: all 0.1s linear;
-     -moz-transition: all 0.1s linear;
-      -ms-transition: all 0.1s linear;
-       -o-transition: all 0.1s linear;
-          transition: all 0.1s linear;
+  position: relative;
+  border-top: 2px solid darken(#50a8d1, 20%);
+  background: #50a8d1;
 
   @media (min-width: 48em) {
-    height: 32px;
+    height: 34px;
   }
 
   nav {
@@ -29,14 +23,6 @@
     left: 0;
     top: 0;
 
-    &.with-animation {
-      -webkit-transition: all 0.1s linear;
-         -moz-transition: all 0.1s linear;
-          -ms-transition: all 0.1s linear;
-           -o-transition: all 0.1s linear;
-              transition: all 0.1s linear;
-    }
-
     @media (min-width: 48em) {
       height: 32px;
     }
@@ -44,22 +30,23 @@
 
   .pure-menu-link {
     color: #ffffff;
-    padding: 0.8em 1em;
+    padding: 0.85em 1em;
 
     @media (min-width: 48em) {
-      padding: 0.5em 1em;
+      padding: 0.55em 1em;
     }
 
     &:hover {
       background: darken(#50a8d1, 10%);
     }
 
-    &:active, &:focus {
-      background: darken(#50a8d1, 5%);
+    &:active, &:focus, &.current {
+      background: darken(#50a8d1, 7.5%);
     }
 
     .fa {
       margin-right: 0.2em;
+      width: $base-font-size;
     }
   }
 
@@ -104,11 +91,5 @@
     .fa {
       padding-right: 0.5em;
     }
-  }
-}
-
-#wrap.no-header {
-  #main-menu {
-    top: 0;
   }
 }

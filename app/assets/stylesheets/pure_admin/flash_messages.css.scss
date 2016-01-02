@@ -1,15 +1,9 @@
 #flashes {
   &.fixed {
-    position: fixed;
+    position: absolute;
     width: 100%;
-    z-index: 7;
-    top: 114px;
     padding: $base-font-size;
-    -webkit-transition: all 0.1s linear;
-       -moz-transition: all 0.1s linear;
-        -ms-transition: all 0.1s linear;
-         -o-transition: all 0.1s linear;
-            transition: all 0.1s linear;
+    padding-top: 0;
 
     @media (min-width: 48em) {
       top: 106px;
@@ -17,18 +11,9 @@
   }
 }
 
-#wrap.no-header {
-  #flashes.fixed {
-    top: 66px;
-
-    @media (min-width: 48em) {
-      top: 58px;
-    }
-  }
-}
-
 .flash {
   padding: 0.66em 1em;
+  margin-top: $base-font-size;
   border: 1px solid transparent;
   font-size: 14px;
   position: relative;

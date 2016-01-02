@@ -1,5 +1,6 @@
 #breadcrumbs {
   height: 27px;
+  border-top: 1px solid darken(#50a8d1, 10%);
   border-bottom: 1px solid #cccccc;
   background: #e7e7e7;
   padding: 1px 16px 2px 16px;
@@ -9,22 +10,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  position: fixed;
-  top: 88px;
-  width: 100%;
-  z-index: 8;
   -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
      -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
           box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  -webkit-transition: all 0.1s linear;
-     -moz-transition: all 0.1s linear;
-      -ms-transition: all 0.1s linear;
-       -o-transition: all 0.1s linear;
-          transition: all 0.1s linear;
-
-  @media (min-width: 48em) {
-    top: 80px;
-  }
 
   a {
     color: #777777;
@@ -56,8 +44,8 @@
   border-top-color: #e7e7e7;
   background: #e7e7e7;
   margin-left: -55px;
-  position: fixed;
-  top: 113px;
+  position: absolute;
+  bottom: -20px;
   left: 50%;
   color: #777777;
   font-size: 0.6em;
@@ -73,31 +61,9 @@
        -o-transition: all 0.1s linear;
           transition: all 0.1s linear;
 
-  @media (min-width: 48em) {
-    top: 105px;
-  }
-
   .middle {
     display: inline-block;
     margin-left: 0.5em;
     margin-right: 0.5em;
-  }
-}
-
-#wrap.no-header {
-  #breadcrumbs {
-    top: 40px;
-
-    @media (min-width: 48em) {
-      top: 32px;
-    }
-  }
-
-  #back-to-top {
-    top: 65px;
-
-    @media (min-width: 48em) {
-      top: 57px;
-    }
   }
 }

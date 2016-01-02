@@ -4,8 +4,8 @@ $('document').ready(function() {
   }
 
   $('*[rel=main-menu-scroll]').on('click', function(event) {
-    var menu = $('#main-menu nav');
-    var menuList = menu.find('.pure-menu-list');
+    var menu = $('#main-menu > nav');
+    var menuList = menu.find('> .pure-menu-list');
 
     // do not scroll if list is shorter than document
     if ( menuList.width() < $(document).width() ) return;
@@ -19,8 +19,6 @@ $('document').ready(function() {
     var offset = maxOffset / 4;
     if ( maxOffset < minStep ) offset = maxOffset;
     if ( offset < minStep ) offset = minStep;
-
-    console.log(menu.scrollLeft());
 
     if ( direction == 'left' ) {
       // we're scrolling left

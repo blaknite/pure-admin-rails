@@ -81,14 +81,11 @@ h4, h5, h6 {
 }
 
 #main-header {
-  padding: 0.5em;
-  height: 48px;
   background: #272a2a;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  border-bottom: 2px solid darken(#50a8d1, 20%);
   z-index: 10;
   -webkit-transition: all 0.1s linear;
      -moz-transition: all 0.1s linear;
@@ -101,11 +98,11 @@ h4, h5, h6 {
   }
 
   .pure-menu-heading {
+    padding: 12px 0 9px 16px;
+    height: 46px;
     font-weight: 400;
     font-size: 120%;
     float: left;
-    padding-top: 5px;
-    padding-left: 8px;
 
     a {
       color: #ffffff;
@@ -120,7 +117,8 @@ h4, h5, h6 {
     ul {
       float: right;
       position: relative;
-      top: -1px;
+      top: 6px;
+      right: 8px;
 
       li {
         color: #cccccc;
