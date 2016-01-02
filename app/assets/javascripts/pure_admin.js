@@ -1,4 +1,3 @@
-//= require jquery_ujs
 //= require jquery.throttledebounce
 //= require jquery.waypoints
 //= require_tree ./pure_admin
