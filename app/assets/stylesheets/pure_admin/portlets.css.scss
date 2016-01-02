@@ -76,10 +76,6 @@ $icon-minus: '\f068';
       top: 0;
     }
   }
-
-  &:hover {
-    background: lighten($grey-light, 1%);
-  }
 }
 
 .portlet.expanded {
@@ -88,12 +84,18 @@ $icon-minus: '\f068';
   }
 }
 
+.portlet[data-closable=true] {
+  .portlet-title {
+    cursor: pointer;
+    background: lighten($grey-light, 1.5%);
+  }
+}
+
 .portlet-controls {
   line-height: $base-font-size * 1.5;
   position: absolute;
   right: $base-font-size * 0.8;
   top: $base-font-size * 0.4;
-
 }
 
 .portlet-indicator {
