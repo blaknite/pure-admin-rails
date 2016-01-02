@@ -17,7 +17,7 @@ $icon-minus: '\f068';
 
   &.expanded {
     .portlet-indicator:before {
-      content: $icon-chevron-down;
+      content: $icon-chevron-up;
     }
 
     .portlet-body {
@@ -105,7 +105,7 @@ $icon-minus: '\f068';
 
   &:before {
     font-family: FontAwesome;
-    content: $icon-chevron-up;
+    content: $icon-chevron-down;
   }
 }
 
