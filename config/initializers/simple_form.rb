@@ -78,19 +78,19 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label
-    b.wrapper :input_wrapper, tag: :div, class: 'input-wrapper pure-g' do |bb|
-      bb.wrapper :addon_wrapper, tag: :div, class: 'addon-wrapper pure-u' do |bbb|
-        bbb.optional :prefix, wrap_with: { tag: :span, class: 'input-addon prefix' }
+    b.wrapper :input_wrapper, tag: :div, class: 'input-wrapper' do |bb|
+      bb.wrapper :addon_wrapper, tag: :div, class: 'addon-wrapper' do |bbb|
+        bbb.optional :prefix, wrap_with: { tag: :span, class: 'input-addon' }
         bbb.use :input
-        bbb.optional :suffix, wrap_with: { tag: :span, class: 'input-addon suffix' }
+        bbb.optional :suffix, wrap_with: { tag: :span, class: 'input-addon' }
       end
 
       # Replace the above wrapper with our variant
       bb_components = bb.to_a.pop
       bb.to_a << SkinnyWrapper.new(bb_components.namespace, bb_components.components, bb_components.defaults)
 
-      bb.use :hint,  wrap_with: { tag: :span, class: 'pure-u-1 hint' }
-      bb.use :error, wrap_with: { tag: :span, class: 'pure-u-1 error' }
+      bb.use :hint,  wrap_with: { tag: :span, class: 'hint' }
+      bb.use :error, wrap_with: { tag: :span, class: 'error' }
     end
   end
 
@@ -138,7 +138,7 @@ SimpleForm.setup do |config|
   # config.item_wrapper_tag = :span
 
   # You can define a class to use in all item wrappers. Defaulting to none.
-  config.item_wrapper_class = 'pure-u'
+  # config.item_wrapper_class = 'pure-u'
 
   # How the label text should be generated altogether with the required text.
   # config.label_text = lambda { |label, required| "#{required} #{label}" }
@@ -190,5 +190,5 @@ SimpleForm.setup do |config|
   # config.cache_discovery = !Rails.env.development?
 
   # Default class for inputs
-  # config.input_class = nil
+  config.input_class = 'pure-input-1'
 end
