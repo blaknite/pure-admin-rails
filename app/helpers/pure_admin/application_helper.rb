@@ -35,6 +35,9 @@ module PureAdmin::ApplicationHelper
     inner = ''.html_safe
     unless title.blank?
       title_content = ''.html_safe
+      if options[:icon]
+        title = title.prepend(content_tag(:i, nil, class: "fa fa-fw fa-#{options[:icon]}")).html_safe
+      end
       title_content << content_tag(:h4, title)
 
       indicator = ''.html_safe
