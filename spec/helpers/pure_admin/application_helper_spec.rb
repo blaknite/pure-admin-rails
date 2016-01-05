@@ -68,6 +68,14 @@ describe PureAdmin::ApplicationHelper do
             it { is_expected.to_not have_selector('.portlet[data-expand=true]') }
           end
         end
+
+        context 'when an icon is given' do
+          subject(:html) { portlet('apples', icon: :pencil) { 'banana' } }
+
+          it 'contains the correct FontAwesome element' do
+            expect(html).to have_selector('.portlet-title h4 .fa.fa-fw.fa-pencil')
+          end
+        end
       end
 
       context 'when the source attribute is passed in' do
@@ -91,6 +99,14 @@ describe PureAdmin::ApplicationHelper do
           it { is_expected.to_not have_selector('.portlet[data-expand=true]') }
 
           it { is_expected.to have_selector('.portlet[data-source="google.com"]') }
+        end
+
+        context 'when an icon is given' do
+          subject(:html) { portlet('apples', source: 'google.com', icon: :pencil) }
+
+          it 'contains the correct FontAwesome element' do
+            expect(html).to have_selector('.portlet-title h4 .fa.fa-fw.fa-pencil')
+          end
         end
       end
     end
