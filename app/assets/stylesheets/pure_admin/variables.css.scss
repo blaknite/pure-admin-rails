@@ -8,6 +8,7 @@ $black: #000;
 $grey-light: #efefef;
 $grey-medium: #d9d9d9;
 $grey-medium-dark: #cdcdcd;
+$grey-dark: #aaa;
 
 $text-success: #3c763d;
 $background-success: #c2e6b3;
@@ -24,3 +25,5 @@ $border-alert: #ddd6b2;
 $text-error: #a94442;
 $background-error: #e9c5c5;
 $border-error: #deb0b0;
+
+$text-muted: $grey-dark;

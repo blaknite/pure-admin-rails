@@ -84,18 +84,26 @@
     padding: 0.55em;
   }
 
+  @mixin pure-form-indented {
+    @media (min-width: 35.5em) {
+      padding-left: $base-font-size * 12;
+    }
+  }
+
   .pure-controls {
     padding-top: $base-font-size;
     padding-bottom: $base-font-size;
     border-top: 2px solid #e8e8e8;
 
-    @media (min-width: 35.5em) {
-      padding-left: $base-font-size * 12;
-    }
+    @include pure-form-indented;
 
     .pure-button {
       margin-right: $base-font-size * 0.25;
     }
+  }
+
+  .pure-form-indented {
+    @include pure-form-indented;
   }
 }
 
