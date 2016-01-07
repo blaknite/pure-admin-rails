@@ -1,6 +1,6 @@
 ##
 # Helper methods for use throughout the application.
-module PureAdmin::ApplicationHelper
+module PureAdmin::PortletHelper
   ##
   # Renders a "portlet" to the view.
   # @param title (String)
