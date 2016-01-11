@@ -4,108 +4,79 @@
 module PureAdmin::MenuHelper
   ##
   # Renders a pure menu wrapper to the view.
-  # @param options (Hash) all options that can be passed to content_tag are respected here.
-  # @param options[:animate] (Boolean) if this is false the 'with-animation' class will not be
-  #   applied to the nested ul.
-  # @param options[:horizontal] (Boolean) if this is false, the 'pure-menu-horizontal' class will
-  #   not be applied to the wrapper tag.
-  # @param options[:fixed] (Boolean) if this is false, the 'pure-menu-fixed' class will not be
-  #   applied to the wrapper tag.
-  # @param options[:main_menu] (Boolean) if this is false and no :id key has been supplied, the id
-  #   'main-menu' will not be applied to the wrapper tag.
+  # @param options (Hash) a container for options to be passed to menus and menu lists.
+  # @param options[:menu_options] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:list_options] (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the menu panel
   def menu(options = nil, &block)
-    fail ArgumentError, 'You must supply a block.' unless block_given?
+    options ||= {}
 
-    if options
-      opts = options.dup
-    else
-      opts = {}
+    menu_options = options.delete(:menu_options) || {}
+    menu_options[:class] = ['pure-menu', menu_options[:class]]
+    menu_options[:class].flatten!
+    menu_options[:class].compact!
+
+    list_options = options.delete(:list_options) || {}
+    list_options[:class] = ['pure-menu-list', list_options[:class]]
+    list_options[:class].flatten!
+    list_options[:class].compact!
+
+    content_tag(:nav, menu_options) do
+      content_tag(:ul, '', list_options, &block)
     end
-
-    inner_classes = ['pure-menu-list']
-    inner_classes << 'with-animation' unless opts.delete(:animate) == false
-    inner = content_tag(:ul, capture(&block), class: inner_classes)
-
-    wrapper_classes = ['pure-menu']
-    wrapper_classes << 'pure-menu-horizontal' unless opts.delete(:horizontal) == false
-    wrapper_classes << 'pure-menu-fixed' unless opts.delete(:fixed) == false
-
-    unless opts.delete(:main_menu) == false
-      %w(left right).each do |dir|
-        inner << content_tag(:div, content_tag(:span, nil, class: "fa fa-angle-double-#{dir}"),
-          class: "fade-#{dir}", rel: 'main-menu-scroll', data: { direction: dir })
-      end
-
-      opts[:id] = 'main-menu' unless opts[:id].present?
-    end
-
-    opts[:class] = "#{wrapper_classes.join(' ')} #{opts[:class]}".strip
-    content_tag(:div, content_tag(:nav, inner), opts)
   end
 
   ##
   # Renders a "menu item" to the view.
-  # @param label (String, Symbol)
-  # @param destination (String, Array)
-  # @param options (Hash) all options that can be passed to content_tag are respected here.
-  # @param options[:icon] (String, Symbol) a FontAwesome icon name that will be prepended to the
-  #   label.
-  def menu_item(label = nil, destination = nil, options = nil, &block)
-    if label.is_a?(Hash) && destination.nil? && options.nil? && block_given?
-      # eg. menu_item(class: 'testing') do ...
-      opts = label.dup
-      label = nil
-      destination = '#'
-    elsif label.is_a?(Hash) && destination.nil? && options.nil? && !block_given?
-      # eg. menu_item(class: 'testing')
-      fail ArgumentError, 'Cannot build a menu item with only an options hash'
-    elsif label.present? && destination.is_a?(Hash) && options.nil? && block_given?
-      # eg. menu_item('destination', class: 'testing') do ...
-      opts = destination.dup
-      destination = label.to_s
-      label = nil
-    elsif label.present? && destination.is_a?(Hash) && options.nil? && !block_given?
-      # eg. menu_item('destination', class: 'testing')
-      opts = destination.dup
-      destination = '#'
-    elsif label.present? && destination.nil? && options.nil? && !block_given?
-      # eg. menu_item 'destination'
-      destination = '#'
-      opts = {}
-    elsif label.present? && destination.nil? && block_given?
-      # eg. menu_item 'destination' do ...
-      destination = label
-      label = nil
-      opts = options || {}
-    elsif label.nil? && destination.nil? && options.nil? && block_given?
-      # eg. menu_item do ...
-      label = nil
-      destination = '#'
-      opts = {}
-    elsif options
-      opts = options.dup
-    else
-      opts = {}
+  # @param name (String, Symbol)
+  # @param url (String, Array)
+  # @param options (Hash) a container for options to be passed to menu items and links.
+  # @param options[:item_options] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:link_options] (Hash) all options that can be passed to link_to are respected here.
+  def menu_item(name = nil, url = nil, options = nil, &block)
+    options, url, name = url, name, nil if block_given?
+
+    name = name.to_s.titleize unless name.nil? || name.respond_to?(:titleize)
+    options ||= {}
+
+    item_options = options.delete(:item_options) || {}
+    item_options[:class] = ['pure-menu-item', item_options[:class]]
+    # TODO: Properly handle current page to take into account multi-level menus.
+    item_options[:class] << 'current' if current_page?(url) || name.to_s.downcase == controller_name
+    item_options[:class].flatten!
+    item_options[:class].compact!
+
+    link_options = options.delete(:link_options) || {}
+    link_options[:class] = ['pure-menu-link', link_options[:class]]
+    link_options[:class].flatten!
+    link_options[:class].compact!
+
+    content_tag(:li, item_options) do
+      block_given? ? link_to(url, link_options, &block) : link_to(name, url, link_options)
     end
+  end
 
-    fail ArgumentError, 'cannot supply both a label and a block' if label.present? && block_given?
+  ##
+  # Renders a "menu item" to the view if the condition is true.
+  # @param condition (Boolean) the condition to be evaluated
+  # @param name (String, Symbol)
+  # @param url (String, Array)
+  # @param options (Hash) a container for options to be passed to menu items and links.
+  # @param options[:item_options] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:link_options] (Hash) all options that can be passed to link_to are respected here.
+  def menu_item_if(condition, name = nil, url = nil, options = nil, &block)
+    menu_item(name, url, options, &block) if condition
+  end
 
-    label = label.is_a?(Symbol) ? label.to_s.titleize : label
-
-    link_text = ''.html_safe
-    icon = opts.delete(:icon)
-    link_text << content_tag(:i, nil, class: "fa fa-#{icon}") if icon.present?
-    link_text << (block_given? ? capture(&block) : label)
-
-    link_class = 'pure-menu-link'
-    # TODO: when the implementation for multi-level menus is complete, consider what the parent
-    # should do when children are current.
-    link_class << ' current' if current_page?(destination) || label.to_s.downcase == controller_name
-
-    link = link_to(link_text, destination, class: link_class)
-
-    opts[:class] = "pure-menu-item #{opts[:class]}"
-    content_tag(:li, link, opts)
+  ##
+  # Renders a "menu item" to the view if the condition is false.
+  # @param condition (Boolean) the condition to be evaluated
+  # @param name (String, Symbol)
+  # @param url (String, Array)
+  # @param options (Hash) a container for options to be passed to menu items and links.
+  # @param options[:item_options] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:link_options] (Hash) all options that can be passed to link_to are respected here.
+  def menu_item_unless(condition, name = nil, url = nil, options = nil, &block)
+    !menu_item_if(condition, name, url, options, &block)
   end
 end

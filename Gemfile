@@ -10,7 +10,7 @@ gem 'crummy', github: 'blaknite/crummy', branch: 'master'
 gem 'simple_form'
 
 group :development, :test do
-  gem 'rails'
+  gem 'rails', '~> 4.2'
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'

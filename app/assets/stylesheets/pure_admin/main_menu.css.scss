@@ -28,6 +28,13 @@
     }
   }
 
+  li.pure-menu-item {
+    &.current {
+      .pure-menu-link {
+        background: darken(#50a8d1, 7.5%);
+      }
+    }
+  }
   .pure-menu-link {
     color: #ffffff;
     padding: 0.8em 1em;
@@ -61,6 +68,10 @@
     pointer-events: none;
     display: none;
 
+    @media (min-width: 35.5em) {
+      pointer-events: auto;
+    }
+
     @media (min-width: 48em) {
       height: 32px;
       line-height: 1.5em;
@@ -68,7 +79,6 @@
 
     .fa {
       cursor: pointer;
-      pointer-events: auto;
       padding: 0.25em;
     }
   }
