@@ -96,6 +96,9 @@ $icon-minus: '\f068';
   position: absolute;
   right: $base-font-size * 0.8;
   top: $base-font-size * 0.4;
+  border-left: 1px solid $grey-medium-dark;
+  margin-left: 10px;
+  padding-left: 10px;
 }
 
 .portlet-indicator {

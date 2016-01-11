@@ -4,64 +4,60 @@ module PureAdmin::ApplicationHelper
   ##
   # Renders a "portlet" to the view.
   # @param title (String)
-  # @param options (Hash) all options that can be passed to content_tag are respected here.
+  # @param options (Hash) a container for options to the portlet.
+  # @param options[:portlet_html] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:title_html] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:body_html] (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the portlet
-  def portlet(title = nil, options = nil, &block)
-    if options.nil? && title.is_a?(Hash)
-      opts = title.dup
-      title = nil
-    elsif options
-      opts = options.dup
-    else
-      opts = {}
-    end
+  def portlet(title, options = {}, &block)
+    portlet_html = options[:portlet_html] || {}
+    portlet_html[:class] = ['portlet', portlet_html[:class]]
+    portlet_html[:data] = portlet_html[:data] || {}
+    portlet_html[:data][:source] = options[:source] unless block_given?
 
-    opts[:data] = opts[:data] || {}
+    title_html = options.delete(:title_html) || {}
+
+    body_html = options.delete(:body_html) || {}
+
+    title = content_tag(:i, nil, class: "fa fa-fw fa-#{options[:icon]}") + h(title) if options[:icon]
 
     # This determines if the portlet can be closed. If it is remote it can be closed. If not,
     # it is determined by the presence of expand in the options.
     # e.g. <%= portlet 'A title', expand: true do %>...
-    closable = block_given? ? opts.key?(:expand) : true
+    closable = options.key?(:source) || options.key?(:expand)
+
+    portlet_html[:data][:closable] = closable
+
+    if closable
+      controls_content = content_tag(:div, class: 'portlet-controls') do
+        content_tag(:span, nil, class: 'portlet-indicator')
+      end
+    end
 
     # This determines if the portlet should be expanded by default. If if is explicitly given that
     # takes precedence. If not, by default all remote portlets are not expanded and all static
     # portlets are.
-    if opts.key?(:expand)
-      expand = opts.delete(:expand)
-    else
-      expand = (block_given? ? true : false)
-    end
-
-    inner = ''.html_safe
-    unless title.blank?
-      title_content = ''.html_safe
-      if opts[:icon]
-        title = title.prepend(content_tag(:i, nil, class: "fa fa-fw fa-#{opts[:icon]}")).html_safe
-      end
-      title_content << content_tag(:h4, title)
-
-      indicator = ''.html_safe
-      if closable
-        indicator << content_tag(:span, '', class: 'portlet-indicator')
-        opts[:data][:source] = opts.delete(:source) unless block_given?
-      end
-
-      title_content << content_tag(:div, indicator, class: 'portlet-controls') unless indicator.blank?
-
-      inner << content_tag(:div, title_content, class: 'portlet-title')
-    end
-
-    portlet_body = block_given? ? capture(&block) : ''
-    inner << content_tag(:div, portlet_body, class: 'portlet-body clear-fix')
-
-    opts[:class] = "portlet #{opts[:class]}"
-    opts[:data][:closable] = closable
+    expand = options.key?(:expand) ? options[:expand] : block_given?
 
     if expand
-      opts[:class] << ' expanded'
-      opts[:data][:expand] = true
+      portlet_html[:class] << 'expanded'
+      portlet_html[:data][:expand] = true
     end
 
-    content_tag(:div, inner, opts)
+    title_content = content_tag(:div, class: 'portlet-title') do
+      content_tag(:h4, title) + ( controls_content || '' )
+    end
+
+    if block_given?
+      body_content = content_tag(:div, { class: 'portlet-body clear-fix' }, &block)
+    else
+      body_content = content_tag(:div, '', { class: 'portlet-body clear-fix' })
+    end
+
+    portlet_html[:class] = portlet_html[:class].flatten.compact
+
+    content_tag(:div, portlet_html) do
+      title_content + body_content
+    end
   end
 end
