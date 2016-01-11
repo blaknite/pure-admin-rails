@@ -141,5 +141,14 @@ describe PureAdmin::MenuHelper do
         expect(html).to have_selector('li.pure-menu-item.current')
       end
     end
+
+    context 'when url is blank' do
+      subject(:html) { helper.menu_item('tests', nil) }
+
+      it 'creates a span instead of a link' do
+        expect(html).to have_selector('li.pure-menu-item span.pure-menu-link')
+      end
+    end
+  end
   end
 end

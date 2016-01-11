@@ -42,7 +42,9 @@ module PureAdmin::MenuHelper
     item_options = options.delete(:item_options) || {}
     item_options[:class] = ['pure-menu-item', item_options[:class]]
     # TODO: Properly handle current page to take into account multi-level menus.
-    item_options[:class] << 'current' if current_page?(url) || name.to_s.downcase == controller_name
+    if url.present? && ( current_page?(url) || name.to_s.downcase == controller_name )
+      item_options[:class] << 'current'
+    end
     item_options[:class].flatten!
     item_options[:class].compact!
 
@@ -52,7 +54,11 @@ module PureAdmin::MenuHelper
     link_options[:class].compact!
 
     content_tag(:li, item_options) do
-      block_given? ? link_to(url, link_options, &block) : link_to(name, url, link_options)
+      if url.present?
+        block_given? ? link_to(url, link_options, &block) : link_to(name, url, link_options)
+      else
+        block_given? ? content_tag(:span, link_options, &block) : content_tag(:span, name, link_options)
+      end
     end
   end
 
