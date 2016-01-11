@@ -3,7 +3,7 @@ require 'rails_helper'
 describe PureAdmin::MenuHelper do
   describe '#menu' do
     context 'with a block' do
-      subject(:html) { menu { 'block content' } }
+      subject(:html) { helper.menu { 'block content' } }
 
       it 'renders a nav tag' do
         expect(html).to have_selector('nav.pure-menu')
@@ -18,14 +18,14 @@ describe PureAdmin::MenuHelper do
       end
 
       context 'specifically with options' do
-        subject(:html) { menu(menu_options: { data: { options: 'menu' } },
-          list_options: { data: { options: 'list' } }) { 'block content' } }
+        subject(:html) { helper.menu(menu_html: { data: { options: 'menu' } },
+          list_html: { data: { options: 'list' } }) { 'block content' } }
 
-        it 'uses menu_options as html attributes on the nav tag' do
+        it 'uses menu_html as html attributes on the nav tag' do
           expect(html).to have_selector('nav.pure-menu[data-options="menu"]')
         end
 
-        it 'uses list_options as html attributes on the ul tag' do
+        it 'uses list_html as html attributes on the ul tag' do
           expect(html).to have_selector('nav.pure-menu ul.pure-menu-list[data-options="list"]')
         end
 
@@ -38,8 +38,8 @@ describe PureAdmin::MenuHelper do
 
   describe '#menu-item' do
     context 'with a name, url, and options' do
-      subject(:html) { helper.menu_item(:name_symbol, 'dest', item_options: { data: { options: 'item' } },
-        link_options: { data: { options: 'link' } }) }
+      subject(:html) { helper.menu_item(:name_symbol, 'dest', item_html: { data: { options: 'item' } },
+        link_html: { data: { options: 'link' } }) }
 
       it 'renders an li tag' do
         expect(html).to have_selector('li.pure-menu-item')
@@ -57,11 +57,11 @@ describe PureAdmin::MenuHelper do
         expect(html).to have_selector('li.pure-menu-item a.pure-menu-link[href="dest"]')
       end
 
-      it 'uses item_options as html attributes for the wrapping li' do
+      it 'uses item_html as html attributes for the wrapping li' do
         expect(html).to have_selector('li.pure-menu-item[data-options="item"]')
       end
 
-      it 'uses link_options as html attributes for the anchor' do
+      it 'uses link_html as html attributes for the anchor' do
         expect(html).to have_selector('li.pure-menu-item a.pure-menu-link[data-options="link"]')
       end
 
@@ -78,7 +78,7 @@ describe PureAdmin::MenuHelper do
 
     context 'with a string argument, options, and block' do
       subject(:html) { helper.menu_item('argument',
-        item_options: { data: { options: 'item' } }) { 'block content' } }
+        item_html: { data: { options: 'item' } }) { 'block content' } }
 
       it 'uses the first argument as the destination and creates a link with this as the href' do
         expect(html).to have_selector('li.pure-menu-item a.pure-menu-link[href="argument"]')
