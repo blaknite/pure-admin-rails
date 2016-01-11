@@ -83,6 +83,6 @@ module PureAdmin::MenuHelper
   # @param options[:item_options] (Hash) all options that can be passed to content_tag are respected here.
   # @param options[:link_options] (Hash) all options that can be passed to link_to are respected here.
   def menu_item_unless(condition, name = nil, url = nil, options = nil, &block)
-    !menu_item_if(condition, name, url, options, &block)
+    menu_item_if(!condition, name, url, options, &block)
   end
 end

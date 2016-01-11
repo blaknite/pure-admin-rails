@@ -150,5 +150,40 @@ describe PureAdmin::MenuHelper do
       end
     end
   end
+
+  describe '#menu-item-if' do
+    context 'when condition is true' do
+      subject(:html) { helper.menu_item_if(true, 'name', 'url') }
+
+      it 'creates a link' do
+        expect(html).to have_selector('li.pure-menu-item a.pure-menu-link')
+      end
+    end
+
+    context 'when condition is not true' do
+      subject(:html) { helper.menu_item_if(false, 'name', 'url') }
+
+      it 'does not create a link' do
+        expect(html).to_not have_selector('li.pure-menu-item a.pure-menu-link')
+      end
+    end
+  end
+
+  describe '#menu-item-unless' do
+    context 'when condition is true' do
+      subject(:html) { helper.menu_item_unless(true, 'name', 'url') }
+
+      it 'does not create a link' do
+        expect(html).to_not have_selector('li.pure-menu-item a.pure-menu-link')
+      end
+    end
+
+    context 'when condition is not true' do
+      subject(:html) { helper.menu_item_unless(false, 'name', 'url') }
+
+      it 'creates a link' do
+        expect(html).to have_selector('li.pure-menu-item a.pure-menu-link')
+      end
+    end
   end
 end
