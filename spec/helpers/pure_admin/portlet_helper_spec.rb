@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PureAdmin::ApplicationHelper do
+describe PureAdmin::PortletHelper do
   describe '#portlet' do
     context 'when a block is given' do
       subject(:html) { helper.portlet('apples', portlet_html: { class: 'classy', data: { whizz: 'pop' } }) { 'banana' } }
