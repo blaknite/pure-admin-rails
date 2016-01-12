@@ -29,6 +29,32 @@ describe PureAdmin::DetailsPanelHelper do
     end
   end
 
+  describe '#details_panel_heading' do
+    context 'with a title and options' do
+      subject(:html) { helper.details_panel_heading('title', data: { options: true }) }
+
+      it { is_expected.to have_selector('h4.details-panel-heading') }
+
+      it 'uses the options as html attributes' do
+        expect(html).to have_selector('h4.details-panel-heading[data-options="true"]')
+      end
+    end
+
+    context 'with options and a block' do
+      subject(:html) { helper.details_panel_heading(data: { options: true }) { 'block content' } }
+
+      it { is_expected.to have_selector('h4.details-panel-heading') }
+
+      it 'uses the options as html attributes' do
+        expect(html).to have_selector('h4.details-panel-heading[data-options="true"]')
+      end
+
+      it 'uses the block as the content' do
+        expect(html).to have_selector('h4.details-panel-heading', text: 'block content')
+      end
+    end
+  end
+
   describe '#details_panel_item' do
     context 'with a label, value, and options' do
       subject(:html) { helper.details_panel_item(:label_symbol, 'value', item_html: { data: { options: true } }) }

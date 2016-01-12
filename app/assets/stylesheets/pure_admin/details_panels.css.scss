@@ -1,11 +1,19 @@
 .details-panel {
   font-size: 14px;
   padding-bottom: $base-font-size;
-  padding: 0 0.5em 1em 0.5em;
+  padding: 0 $base-font-size * 0.5;
 
   @media (min-width: 35.5em) {
     padding: 0;
-    padding-bottom: 1em;
+    padding-bottom: $base-font-size;
+  }
+}
+
+.details-panel-heading {
+  width: 100%;
+
+  &:first-child {
+    margin-top: 0;
   }
 }
 
@@ -51,6 +59,7 @@
   font-size: 14px;
   padding: $base-font-size 0;
   border-top: 2px solid #e8e8e8;
+  margin-top: $base-font-size;
 
   @media (min-width: 35.5em) {
     padding-left: $base-font-size * 12;
@@ -64,12 +73,13 @@
 
 .portlet-body {
   .details-panel {
-    padding: 1em 0;
+    padding: 0;
+    padding-top: $base-font-size;
   }
 
   .details-panel-controls {
     background: #f4f4f4;
-    margin: 0 $base-font-size * -1;
+    margin: $base-font-size $base-font-size * -1 0 $base-font-size * -1;
     padding: $base-font-size * 0.5 $base-font-size;
     padding-bottom: 0;
 

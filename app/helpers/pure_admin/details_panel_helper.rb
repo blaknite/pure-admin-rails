@@ -3,12 +3,23 @@
 module PureAdmin::DetailsPanelHelper
   ##
   # Renders a "details panel" to the view.
-  # @param title (String)
   # @param options (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the details panel
   def details_panel(options = {}, &block)
     options[:class] = merge_html_classes('pure-g details-panel', options[:class])
     content_tag(:div, options, &block)
+  end
+
+  ##
+  # Renders a "details panel heading" to the view.
+  # @param title (String)
+  # @param options (Hash) all options that can be passed to content_tag are respected here.
+  # @yield The contents of the details panel
+  def details_panel_heading(title = nil, options = nil, &block)
+    options, title = title, capture(&block) if block_given?
+    options = options || {}
+    options[:class] = merge_html_classes('pure-u details-panel-heading', options[:class])
+    content_tag(:h4, title, options)
   end
 
   ##
