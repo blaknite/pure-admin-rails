@@ -18,7 +18,7 @@ module PureAdmin::DetailsPanelHelper
   # @param options (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the details panel item
   def details_panel_item(label, value = nil, options = nil, &block)
-    options, value = value, nil if block_given?
+    options, value = value, capture(&block) if block_given?
     options = options || {}
 
     label = label.to_s.titleize unless label.nil? || label.respond_to?(:titleize)
@@ -29,7 +29,7 @@ module PureAdmin::DetailsPanelHelper
     label_html = options.delete(:label_html) || {}
 
     content_tag(:div, item_html) do
-      content_tag(:label, label, label_html) + (block_given? ? capture(&block) : value.to_s)
+      content_tag(:label, label, label_html) + (value || '')
     end
   end
 

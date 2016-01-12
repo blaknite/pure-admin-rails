@@ -9,34 +9,21 @@ describe PureAdmin::DetailsPanelHelper do
         expect(html).to have_selector('div.details-panel')
       end
 
-      it 'renders a .details-panel-body element inside the .details-panel element' do
-        expect(html).to have_selector('div.details-panel div.details-panel-body')
-      end
-
-      it 'renders the block within the .details-panel-body element' do
-        expect(html).to have_selector('div.details-panel div.details-panel-body', text: 'block content')
-      end
-
-      it 'does not render a title' do
-        expect(html).to_not have_selector('div.details-panel div.details-panel-title h4')
+      it 'renders the block within the .details-panel element' do
+        expect(html).to have_selector('div.details-panel', text: 'block content')
       end
 
       context 'specifically with options' do
         subject(:html) {
-          helper.details_panel(panel_html: { data: { options: 'panel' } },
-            body_html: { data: { options: 'body' } }) { 'block content' }
+          helper.details_panel(data: { options: 'panel' }) { 'block content' }
         }
 
         it 'uses panel_html as html attributes on the .details-panel element' do
           expect(html).to have_selector('div.details-panel[data-options="panel"]')
         end
 
-        it 'uses body_html as html attributes on the .details-panel-body element' do
-          expect(html).to have_selector('div.details-panel div.details-panel-body[data-options="body"]')
-        end
-
-        it 'renders the block within the .details-panel-body element' do
-          expect(html).to have_selector('div.details-panel div.details-panel-body', text: 'block content')
+        it 'renders the block within the .details-panel element' do
+          expect(html).to have_selector('div.details-panel', text: 'block content')
         end
       end
     end
@@ -44,48 +31,48 @@ describe PureAdmin::DetailsPanelHelper do
 
   describe '#details_panel_item' do
     context 'with a label, value, and options' do
-      subject(:html) { helper.details_panel_item(:label_symbol, 'value', data: { options: true }) }
+      subject(:html) { helper.details_panel_item(:label_symbol, 'value', item_html: { data: { options: true } }) }
 
-      it 'renders a .details-item element' do
-        expect(html).to have_selector('div.details-item')
+      it 'renders a .details-panel-item element' do
+        expect(html).to have_selector('div.details-panel-item')
       end
 
-      it 'renders a titleized label inside the .details-item element' do
-        expect(html).to have_selector('div.details-item label', text: 'Label Symbol')
+      it 'renders a titleized label inside the .details-panel-item element' do
+        expect(html).to have_selector('div.details-panel-item label', text: 'Label Symbol')
       end
 
-      it 'renders the value inside the .details-item element' do
-        expect(html).to have_selector('div.details-item', text: /value/)
+      it 'renders the value inside the .details-panel-item element' do
+        expect(html).to have_selector('div.details-panel-item', text: /value/)
       end
 
       it 'uses options as html attributes' do
-        expect(html).to have_selector('div.details-item[data-options="true"]')
+        expect(html).to have_selector('div.details-panel-item[data-options="true"]')
       end
 
       context 'when the label is given as a string' do
         subject(:html) {
-          helper.details_panel_item('a Specifically-Cased string', 'value', data: { options: true })
+          helper.details_panel_item('a Specifically-Cased string', 'value', item_html: { data: { options: true } })
         }
 
         it 'leaves the letter case as given' do
-          expect(html).to have_selector('div.details-item label', text: 'a Specifically-Cased string')
+          expect(html).to have_selector('div.details-panel-item label', text: 'a Specifically-Cased string')
         end
       end
     end
 
     context 'with a string argument, options, and block' do
-      subject(:html) { helper.details_panel_item('argument', data: { options: true }) { 'block' } }
+      subject(:html) { helper.details_panel_item('argument', item_html: { data: { options: true } }) { 'block' } }
 
       it 'uses the first argument as a label' do
-        expect(html).to have_selector('div.details-item label', text: 'argument')
+        expect(html).to have_selector('div.details-panel-item label', text: 'argument')
       end
 
       it 'uses the supplied block' do
-        expect(html).to have_selector('div.details-item', text: /block/)
+        expect(html).to have_selector('div.details-panel-item', text: /block/)
       end
 
       it 'detects the options and uses them as html attributes' do
-        expect(html).to have_selector('div.details-item[data-options="true"]')
+        expect(html).to have_selector('div.details-panel-item[data-options="true"]')
       end
     end
 
@@ -93,11 +80,11 @@ describe PureAdmin::DetailsPanelHelper do
       subject(:html) { helper.details_panel_item(:label_symbol, 'value') }
 
       it 'contains the label' do
-        expect(html).to have_selector('div.details-item label', text: /Label Symbol/)
+        expect(html).to have_selector('div.details-panel-item label', text: /Label Symbol/)
       end
 
       it 'contains the value' do
-        expect(html).to have_selector('div.details-item', text: /value/)
+        expect(html).to have_selector('div.details-panel-item', text: /value/)
       end
     end
 
@@ -105,11 +92,11 @@ describe PureAdmin::DetailsPanelHelper do
       subject(:html) { helper.details_panel_item('single argument') { 'block' } }
 
       it 'takes the argument as a label' do
-        expect(html).to have_selector('div.details-item label', text: 'single argument')
+        expect(html).to have_selector('div.details-panel-item label', text: 'single argument')
       end
 
       it 'uses the supplied block' do
-        expect(html).to have_selector('div.details-item', text: /block/)
+        expect(html).to have_selector('div.details-panel-item', text: /block/)
       end
     end
 
@@ -117,19 +104,7 @@ describe PureAdmin::DetailsPanelHelper do
       subject(:html) { helper.details_panel_item('only one') }
 
       it 'takes the argument as a label' do
-        expect(html).to have_selector('div.details-item label', text: 'only one')
-      end
-    end
-
-    context 'with only a block' do
-      subject(:html) { helper.details_panel_item { 'block' } }
-
-      it 'uses the supplied block' do
-        expect(html).to have_selector('div.details-item', text: /block/)
-      end
-
-      it 'produces a blank label' do
-        expect(html).to have_selector('div.details-item label', text: '')
+        expect(html).to have_selector('div.details-panel-item label', text: 'only one')
       end
     end
   end

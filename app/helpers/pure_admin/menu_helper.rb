@@ -30,9 +30,9 @@ module PureAdmin::MenuHelper
   # @param options[:item_html] (Hash) all options that can be passed to content_tag are respected here.
   # @param options[:link_html] (Hash) all options that can be passed to link_to are respected here.
   def menu_item(name = nil, url = nil, options = nil, &block)
-    options, url, name = url, name, nil if block_given?
+    options, url, name = url, name, capture(&block) if block_given?
 
-    name = name.to_s.titleize unless name.nil? || name.respond_to?(:titleize)
+    name = name.to_s.titleize unless block_given? || name.respond_to?(:titleize)
     options ||= {}
 
     item_html = options.delete(:item_html) || {}
@@ -46,11 +46,7 @@ module PureAdmin::MenuHelper
     link_html[:class] = merge_html_classes('pure-menu-link', link_html[:class])
 
     content_tag(:li, item_html) do
-      if url.present?
-        block_given? ? link_to(url, link_html, &block) : link_to(name, url, link_html)
-      else
-        block_given? ? content_tag(:span, link_html, &block) : content_tag(:span, name, link_html)
-      end
+      url.present? ? link_to(name, url, link_html) : content_tag(:span, name, link_html)
     end
   end
 

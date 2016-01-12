@@ -14,7 +14,7 @@ describe PureAdmin::PortletHelper do
       end
 
       it 'includes an h4 title' do
-        expect(html).to have_selector('.portlet .portlet-title h4', text: 'apples')
+        expect(html).to have_selector('.portlet .portlet-heading h4', text: 'apples')
       end
 
       it 'uses the supplied body text' do
@@ -48,7 +48,7 @@ describe PureAdmin::PortletHelper do
         subject(:html) { helper.portlet('apples', icon: :pencil) { 'banana' } }
 
         it 'contains the correct FontAwesome element' do
-          expect(html).to have_selector('.portlet-title h4 .fa.fa-fw.fa-pencil')
+          expect(html).to have_selector('.portlet-heading h4 .fa.fa-fw.fa-pencil')
         end
       end
     end
@@ -80,7 +80,7 @@ describe PureAdmin::PortletHelper do
         subject(:html) { helper.portlet('apples', source: 'google.com', icon: :pencil) }
 
         it 'contains the correct FontAwesome element' do
-          expect(html).to have_selector('.portlet-title h4 .fa.fa-fw.fa-pencil')
+          expect(html).to have_selector('.portlet-heading h4 .fa.fa-fw.fa-pencil')
         end
       end
     end

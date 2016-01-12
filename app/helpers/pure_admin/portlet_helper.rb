@@ -48,7 +48,7 @@ module PureAdmin::PortletHelper
       content_tag(:h4, title) + ( controls_content || '' )
     end
 
-    body_content = content_tag(:div, capture(&block), { class: 'portlet-body clear-fix' })
+    body_content = content_tag(:div, (capture(&block) if block_given?), { class: 'portlet-body clear-fix' })
 
     portlet_html[:class] = portlet_html[:class].flatten.compact
 
