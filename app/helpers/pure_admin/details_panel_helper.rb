@@ -7,7 +7,7 @@ module PureAdmin::DetailsPanelHelper
   # @param options (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the details panel
   def details_panel(options = {}, &block)
-    options[:class] = merge_html_classes('details-panel', options[:class])
+    options[:class] = merge_html_classes('pure-g details-panel', options[:class])
     content_tag(:div, options, &block)
   end
 
