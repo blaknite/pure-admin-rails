@@ -13,3 +13,12 @@
 .text-error {
   color: $text-error;
 }
+
+.text-muted {
+  color: $text-muted;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}

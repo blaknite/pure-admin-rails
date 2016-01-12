@@ -6,7 +6,7 @@
   padding-bottom: $base-font-size;
   padding: 0 0.5em 1em 0.5em;
 
-  @media (min-width: 48em) {
+  @media (min-width: 35.5em) {
     padding: 0;
     padding-bottom: 1em;
   }
@@ -16,7 +16,7 @@
   margin: $base-font-size * 0.5 0;
   word-wrap: break-word;
 
-  @media (min-width: 48em) {
+  @media (min-width: 35.5em) {
     padding-left: $base-font-size * 12;
   }
 
@@ -26,15 +26,21 @@
     display: block;
     color: #999999;
 
-    @media (min-width: 48em) {
+    @media (min-width: 35.5em) {
+      float: left;
       display: inline-block;
       width: $base-font-size * 12;
+      margin-left: -$base-font-size * 12;
+      padding-right: $base-font-size;
       text-align: right;
-      margin-right: $base-font-size;
       position: relative;
-      left: -$base-font-size * 13;
-      margin-right: -$base-font-size * 12;
     }
+  }
+
+  // Remove any top spacing to ensure a smooth line from label to content.
+  label + * {
+    margin-top: 0;
+    padding-top: 0;
   }
 
   img {
@@ -49,7 +55,7 @@
   padding: $base-font-size 0;
   border-top: 2px solid #e8e8e8;
 
-  @media (min-width: 48em) {
+  @media (min-width: 35.5em) {
     padding-left: $base-font-size * 12;
   }
 
@@ -70,7 +76,7 @@
     padding: $base-font-size * 0.5 $base-font-size;
     padding-bottom: 0;
 
-    @media (min-width: 48em) {
+    @media (min-width: 35.5em) {
       padding-left: $base-font-size * 13;
     }
   }
