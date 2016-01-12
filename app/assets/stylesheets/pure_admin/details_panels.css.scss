@@ -1,8 +1,5 @@
 .details-panel {
   font-size: 14px;
-}
-
-.details-panel-body {
   padding-bottom: $base-font-size;
   padding: 0 0.5em 1em 0.5em;
 
@@ -12,7 +9,7 @@
   }
 }
 
-.details-item {
+.details-panel-item {
   margin: $base-font-size * 0.5 0;
   word-wrap: break-word;
 
@@ -66,7 +63,7 @@
 }
 
 .portlet-body {
-  .details-panel-body {
+  .details-panel {
     padding: 1em 0;
   }
 
