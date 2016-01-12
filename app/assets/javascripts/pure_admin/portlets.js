@@ -47,7 +47,7 @@ PureAdmin.portlets = {
     // To save duplicating that logic here, we just rely on the click handler to intercept a
     // simulated click on the title and let the toggle function call this function again.
     if (!portlet.hasClass('expanded')) {
-      portlet.find('.portlet-title').click();
+      portlet.find('.portlet-heading').click();
       return;
     }
 
@@ -101,7 +101,7 @@ PureAdmin.portlets = {
 /*
  * Intercepts clicks on the portlet title and calls the toggle function.
  */
-$(document).on('click', '.portlet-title', PureAdmin.portlets.toggle);
+$(document).on('click', '.portlet-heading', PureAdmin.portlets.toggle);
 
 $(document).ready(function() {
   // Automatically open portlets that match the anchor

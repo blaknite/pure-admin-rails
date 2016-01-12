@@ -6,7 +6,7 @@ module PureAdmin::PortletHelper
   # @param title (String)
   # @param options (Hash) a container for options to the portlet.
   # @param options[:portlet_html] (Hash) all options that can be passed to content_tag are respected here.
-  # @param options[:title_html] (Hash) all options that can be passed to content_tag are respected here.
+  # @param options[:heading_html] (Hash) all options that can be passed to content_tag are respected here.
   # @param options[:body_html] (Hash) all options that can be passed to content_tag are respected here.
   # @yield The contents of the portlet
   def portlet(title, options = {}, &block)
@@ -15,7 +15,7 @@ module PureAdmin::PortletHelper
     portlet_html[:data] = portlet_html[:data] || {}
     portlet_html[:data][:source] = options[:source] unless block_given?
 
-    title_html = options.delete(:title_html) || {}
+    heading_html = options.delete(:heading_html) || {}
 
     body_html = options.delete(:body_html) || {}
 
@@ -44,7 +44,7 @@ module PureAdmin::PortletHelper
       portlet_html[:data][:expand] = true
     end
 
-    title_content = content_tag(:div, class: 'portlet-title') do
+    heading_content = content_tag(:div, class: 'portlet-heading') do
       content_tag(:h4, title) + ( controls_content || '' )
     end
 
@@ -57,7 +57,7 @@ module PureAdmin::PortletHelper
     portlet_html[:class] = portlet_html[:class].flatten.compact
 
     content_tag(:div, portlet_html) do
-      title_content + body_content
+      heading_content + body_content
     end
   end
 end
