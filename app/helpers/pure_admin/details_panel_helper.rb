@@ -39,8 +39,11 @@ module PureAdmin::DetailsPanelHelper
 
     label_html = options.delete(:label_html) || {}
 
+    value = value.try(:to_s)
+    value = content_tag :span, '(blank)', class: 'text-muted' unless value.present?
+
     content_tag(:div, item_html) do
-      content_tag(:label, label, label_html) + value.try(:to_s)
+      content_tag(:label, label, label_html) + value
     end
   end
 
