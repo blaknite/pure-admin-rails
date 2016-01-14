@@ -55,7 +55,9 @@ PureAdmin.mainMenu = {
     var subMenuContent = element.find('> .sub-menu').clone() || '';
 
     mainMenu.addClass('navigating').find('.pure-menu-item').removeClass('menu-active');
+    mainMenu.find('.pure-menu-link').off('click', PureAdmin.mainMenu.closeSubMenu);
     element.addClass('menu-active');
+    element.find('.pure-menu-link').on('click', PureAdmin.mainMenu.closeSubMenu);
     subMenu.removeClass('hidden').find('.pure-menu').html(subMenuContent);
 
     PureAdmin.mainMenu.updateArrows(subMenu);
@@ -67,6 +69,7 @@ PureAdmin.mainMenu = {
 
     subMenu.addClass('hidden').find('.pure-menu').html($('#main-menu .current > .sub-menu').clone());
     mainMenu.removeClass('navigating').find('.pure-menu-item').removeClass('menu-active');
+    mainMenu.find('.pure-menu-link').off('click', PureAdmin.mainMenu.closeSubMenu);
   }
 }
 
