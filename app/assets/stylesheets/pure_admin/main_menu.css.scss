@@ -1,16 +1,9 @@
-#main-menu {
-  height: 42px;
+#main-menu, #sub-menu {
   width: 100%;
   padding: 0;
   overflow: hidden;
   font-size: 14px;
   position: relative;
-  border-top: 2px solid darken(#50a8d1, 20%);
-  background: #50a8d1;
-
-  @media (min-width: 48em) {
-    height: 34px;
-  }
 
   nav {
     padding: 0;
@@ -18,39 +11,20 @@
   }
 
   ul.pure-menu-list {
-    height: 40px;
-    position: relative;
-    left: 0;
-    top: 0;
+    max-height: 40px;
 
     @media (min-width: 48em) {
-      height: 32px;
-    }
-  }
-
-  li.pure-menu-item {
-    &.current {
-      .pure-menu-link {
-        background: darken(#50a8d1, 7.5%);
-      }
+      max-height: 32px;
     }
   }
 
   .pure-menu-link {
     color: #ffffff;
-    padding: 0.8em 1em;
+    padding: 0.85em 1em;
     cursor: pointer;
 
     @media (min-width: 48em) {
       padding: 0.55em 1em;
-    }
-
-    &:hover {
-      background: darken(#50a8d1, 10%);
-    }
-
-    &:active, &:focus, &.current {
-      background: darken(#50a8d1, 7.5%);
     }
 
     .fa {
@@ -103,4 +77,70 @@
       padding-right: 0.5em;
     }
   }
+}
+
+#main-menu {
+  border-top: 2px solid darken($menu-color, 20%);
+  background: $menu-color;
+  max-height: 42px;
+
+  @media (min-width: 48em) {
+    max-height: 34px;
+  }
+
+  .sub-menu {
+    display: none !important;
+  }
+
+  li.pure-menu-item {
+    &.current, &.menu-active {
+      .pure-menu-link {
+        background: darken($menu-color, 7.5%);
+      }
+    }
+  }
+
+  .pure-menu-link {
+    &:active, &:focus, &:hover {
+      background: darken($menu-color, 7.5%);
+    }
+  }
+
+  &.navigating {
+    li.pure-menu-item {
+      &.current:not(.menu-active) {
+        .pure-menu-link:not(:hover) {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
+#sub-menu {
+  background: darken($menu-color, 7.5%);
+  border-top: 1px solid darken($menu-color, 12.5%);
+  max-height: 41px;
+
+  @media (min-width: 48em) {
+    max-height: 33px;
+  }
+
+  li.pure-menu-item {
+    &.current {
+      .pure-menu-link {
+        background: darken($menu-color, 12.5%);
+      }
+    }
+  }
+
+  .pure-menu-link {
+    &:active, &:focus, &:hover {
+      background: darken($menu-color, 12.5%);
+    }
+  }
+}
+
+#main-menu-container:hover #sub-menu {
+  display: block;
 }

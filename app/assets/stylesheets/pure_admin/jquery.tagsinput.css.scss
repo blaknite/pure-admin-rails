@@ -12,13 +12,13 @@ width: 100%;
 }
 
 div.tagsinput span.tag {
-  border: 1px solid #b1d9eb;
+  border: 1px solid darken($link-color, 5%);
   display: block;
   float: left;
   padding: 0em 0.5em;
   text-decoration: none;
-  background: #d1e7f2;
-  color: #50a8d1;
+  background: lighten($link-color, 10%);
+  color: $link-color;
   margin-right: 5px;
   margin-bottom: 5px;
   font-family: helvetica;
