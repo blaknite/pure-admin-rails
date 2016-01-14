@@ -36,9 +36,9 @@ describe PureAdmin::MenuHelper do
     end
   end
 
-  describe '#menu-item' do
+  describe '#menu-item-and-link' do
     context 'with a name, url, and options' do
-      subject(:html) { helper.menu_item(:name_symbol, 'dest', item_html: { data: { options: 'item' } },
+      subject(:html) { helper.menu_item_and_link(:name_symbol, 'dest', item_html: { data: { options: 'item' } },
         link_html: { data: { options: 'link' } }) }
 
       it 'renders an li tag' do
@@ -67,7 +67,7 @@ describe PureAdmin::MenuHelper do
 
       context 'when the label is given as a string' do
         subject(:html) {
-          helper.menu_item('a Specifically-Cased string', 'dest')
+          helper.menu_item_and_link('a Specifically-Cased string', 'dest')
         }
 
         it 'leaves the letter case as given' do
@@ -77,7 +77,7 @@ describe PureAdmin::MenuHelper do
     end
 
     context 'with a string argument, options, and block' do
-      subject(:html) { helper.menu_item('argument',
+      subject(:html) { helper.menu_item_and_link('argument',
         item_html: { data: { options: 'item' } }) { 'block content' } }
 
       it 'uses the first argument as the destination and creates a link with this as the href' do
@@ -94,7 +94,7 @@ describe PureAdmin::MenuHelper do
     end
 
     context 'with a name and a url' do
-      subject(:html) { helper.menu_item(:name_symbol, 'dest') }
+      subject(:html) { helper.menu_item_and_link(:name_symbol, 'dest') }
 
       it 'creates a link with the name as the link text' do
         expect(html).to have_selector('li.pure-menu-item a.pure-menu-link', text: /Name Symbol/)
@@ -106,7 +106,7 @@ describe PureAdmin::MenuHelper do
     end
 
     context 'with a single string or symbol argument and a block' do
-      subject(:html) { helper.menu_item('single argument') { 'block content' } }
+      subject(:html) { helper.menu_item_and_link('single argument') { 'block content' } }
 
       it 'uses the first argument as the destination and creates a link with this as the href' do
         expect(html).to have_selector('li.pure-menu-item a.pure-menu-link[href="single argument"]')
@@ -117,33 +117,8 @@ describe PureAdmin::MenuHelper do
       end
     end
 
-    context 'when the requested page matches the destination passed in' do
-      subject(:html) { helper.menu_item('http://test.host:3000') { 'block content' } }
-
-      before do
-        helper.request.host = 'test.host:3000'
-      end
-
-      it 'applies the class of current to the menu item' do
-        expect(html).to have_selector('li.pure-menu-item.current')
-      end
-    end
-
-    context 'when the given label matches the controller_name' do
-      subject(:html) { helper.menu_item('tests', 'something-else') }
-
-      before do
-        class TestsController < ActionController::Base; end
-        helper.controller = TestsController
-      end
-
-      it 'applies the class of current to the menu item' do
-        expect(html).to have_selector('li.pure-menu-item.current')
-      end
-    end
-
     context 'when url is blank' do
-      subject(:html) { helper.menu_item('tests', nil) }
+      subject(:html) { helper.menu_item_and_link('tests', nil) }
 
       it 'creates a span instead of a link' do
         expect(html).to have_selector('li.pure-menu-item span.pure-menu-link')
@@ -151,38 +126,52 @@ describe PureAdmin::MenuHelper do
     end
   end
 
-  describe '#menu-item-if' do
-    context 'when condition is true' do
-      subject(:html) { helper.menu_item_if(true, 'name', 'url') }
+  describe '#menu-item' do
+    context 'when options[:current] is true' do
+      subject(:html) { helper.menu_item(current: true) { 'block content' } }
 
-      it 'creates a link' do
-        expect(html).to have_selector('li.pure-menu-item a.pure-menu-link')
+      it 'marks item as current' do
+        expect(html).to have_selector('li.pure-menu-item.current')
       end
     end
 
-    context 'when condition is not true' do
-      subject(:html) { helper.menu_item_if(false, 'name', 'url') }
+    context 'when options[:current] is false' do
+      subject(:html) { helper.menu_item(current: false) { 'block content' } }
 
-      it 'does not create a link' do
-        expect(html).to_not have_selector('li.pure-menu-item a.pure-menu-link')
-      end
-    end
-  end
-
-  describe '#menu-item-unless' do
-    context 'when condition is true' do
-      subject(:html) { helper.menu_item_unless(true, 'name', 'url') }
-
-      it 'does not create a link' do
-        expect(html).to_not have_selector('li.pure-menu-item a.pure-menu-link')
+      it 'does not mark item as current' do
+        expect(html).to have_selector('li.pure-menu-item:not(.current)')
       end
     end
 
-    context 'when condition is not true' do
-      subject(:html) { helper.menu_item_unless(false, 'name', 'url') }
+    context 'when if condition is true' do
+      subject(:html) { helper.menu_item(if: true) { 'block content' } }
 
-      it 'creates a link' do
-        expect(html).to have_selector('li.pure-menu-item a.pure-menu-link')
+      it 'creates an item' do
+        expect(html).to have_selector('li.pure-menu-item')
+      end
+    end
+
+    context 'when if condition is not true' do
+      subject(:html) { helper.menu_item(if: false) { 'block content' } }
+
+      it 'does not create an item' do
+        expect(html).to_not have_selector('li.pure-menu-item')
+      end
+    end
+
+    context 'when unless condition is true' do
+      subject(:html) { helper.menu_item(unless: true) { 'block content' } }
+
+      it 'does not create an item' do
+        expect(html).to_not have_selector('li.pure-menu-item')
+      end
+    end
+
+    context 'when unless condition is not true' do
+      subject(:html) { helper.menu_item(unless: false) { 'block content' } }
+
+      it 'creates an item' do
+        expect(html).to have_selector('li.pure-menu-item')
       end
     end
   end
