@@ -15,47 +15,78 @@
 <body>
   <div id="wrap">
     <header id="main-header">
-      <h1 class="pure-menu-heading">
-        <%= link_to 'Admin Panel', admin_root_path %>
-      </h1>
-
-      <nav id="account-menu" class="pure-menu pure-menu-horizontal">
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item">
-            <%= link_to root_path, class: 'pure-menu-link' do %>
-              <span class="fa fa-external-link"></span>
-            <% end %>
-          </li>
-        </ul>
-      </nav>
-    </header>
-
-    <nav id="main-menu" class="pure-menu pure-menu-horizontal pure-menu-fixed">
-      <ul class="pure-menu-list">
-        <li class="pure-menu-item">
-          <%= link_to admin_root_path, class: 'pure-menu-link' do %>
-            <span class="fa fa-home"></span> Dashboard
+      <div class="clear-fix">
+        <h1 class="pure-menu-heading">
+          <%= link_to admin_root_path do %>
+            Admin<span class="hidden-sm">istrator</span> Control Panel
           <% end %>
-        </li>
-      </ul>
-    </nav>
+        </h1>
 
-    <div id="breadcrumbs">
-      <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> '), truncate: 16, link_last_crumb: false %>
-    </div>
+        <nav id="account-menu" class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item hidden-sm user-details">
+              Welcome User
+            </li>
+            <li class="pure-menu-item">
+              <%= link_to root_path, class: 'pure-menu-link' do %>
+                <span class="fa fa-external-link"></span>
+              <% end %>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-    <div id="back-to-top">
-      <span class="fa fa-chevron-up"></span> <span class="middle">Back to top</span> <span class="fa fa-chevron-up"></span>
-    </div>
+      <div id="main-menu-container">
+        <div id="main-menu">
+          <%= menu menu_html: { class: 'pure-menu-horizontal pure-menu-scrollable' } do %>
+            <%= menu_item_and_link '/' do %>
+              <span class="fa fa-fw fa-home"></span> Home
+            <% end %>
+          <% end %>
 
-    <div id="flashes" class="fixed"></div>
+          <div class="fade-left" rel="main-menu-scroll" data-direction="left">
+            <span class="fa fa-angle-double-left"></span>
+          </div>
+
+          <div class="fade-right" rel="main-menu-scroll" data-direction="right">
+            <span class="fa fa-angle-double-right"></span>
+          </div>
+        </div>
+
+        <div id="sub-menu" class="hidden">
+          <nav class="pure-menu pure-menu-horizontal pure-menu-scrollable"></nav>
+
+          <div class="fade-left" rel="sub-menu-scroll" data-direction="left">
+            <span class="fa fa-angle-double-left"></span>
+          </div>
+
+          <div class="fade-right" rel="sub-menu-scroll" data-direction="right">
+            <span class="fa fa-angle-double-right"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="breadcrumbs">
+        <%= render_crumbs separator: raw(' <span class="fa fa-angle-right"></span> '),
+              truncate: 16, link_last_crumb: false %>
+      </div>
+
+      <div id="back-to-top">
+        <span class="fa fa-chevron-up"></span>
+        <span class="middle">Back to top</span>
+        <span class="fa fa-chevron-up"></span>
+      </div>
+
+      <div id="flashes" class="fixed"></div>
+    </header>
 
     <section id="main">
       <%= yield %>
     </section>
 
     <footer id="main-footer">
-      &copy; <%= Time.now.year %> Grant Colegate. All rights reserved. <span style="float: right;" class="hidden-sm">This site is built with &lt;3 using Pure 0.6.0</span>
+      &copy; <%= Time.now.year %> Grant Colegate. All rights reserved.
+      <span style="float: right;" class="hidden-sm">This site is built with &lt;3 using Pure 0.6.0</span>
     </footer>
   </div>
 </body>
