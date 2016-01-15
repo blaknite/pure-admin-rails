@@ -19,7 +19,7 @@ module PureAdmin::PortletHelper
 
     body_html = options.delete(:body_html) || {}
 
-    title = content_tag(:i, nil, class: "fa fa-fw fa-#{options[:icon]}") + h(title) if options[:icon]
+    icon = content_tag(:i, nil, class: "portlet-heading-icon fa fa-fw fa-#{options[:icon]}") if options[:icon]
 
     # This determines if the portlet can be closed. If it is remote it can be closed. If not,
     # it is determined by the presence of expand in the options.
@@ -45,7 +45,7 @@ module PureAdmin::PortletHelper
     end
 
     heading_content = content_tag(:div, class: 'portlet-heading') do
-      content_tag(:h4, title) + ( controls_content || '' )
+      ( icon || ''.html_safe ) + content_tag(:h4, title) + ( controls_content || ''.html_safe )
     end
 
     body_content = content_tag(:div, (capture(&block) if block_given?), { class: 'portlet-body clear-fix' })

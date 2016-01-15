@@ -54,26 +54,20 @@ $icon-minus: '\f068';
 .portlet-heading {
   background: $grey-light;
   min-height: $base-font-size * 2;
-  padding: $base-font-size * 0.4 $base-font-size * 0.8;
-  position: relative;
+  padding: $base-font-size * 0.4 0;
 
   h4 {
     display: inline-block;
     font-size: 1em;
     font-weight: 400;
     line-height: $base-font-size * 1.5;
+    padding: 0 $base-font-size * 0.8;
     margin: 0;
     text-transform: uppercase;
     position: relative;
     top: 1px;
-
-    .fa {
-      border-right: 1px solid $grey-medium-dark;
-      margin-right: 10px;
-      padding: 0 1.5em 0 0;
-      position: relative;
-      top: 0;
-    }
+    display: table-cell;
+    width: 100%;
   }
 }
 
@@ -86,7 +80,6 @@ $icon-minus: '\f068';
 .portlet[data-closable=true] {
   .portlet-heading {
     cursor: pointer;
-    padding-right: $base-font-size * 2.5;
 
     &:hover {
       background: lighten($grey-light, 1.5%);
@@ -94,14 +87,20 @@ $icon-minus: '\f068';
   }
 }
 
+.portlet-heading-icon {
+  line-height: $base-font-size * 1.5;
+  border-right: 1px solid $grey-medium-dark;
+  padding: 0 $base-font-size * 0.8;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .portlet-controls {
   line-height: $base-font-size * 1.5;
-  position: absolute;
-  right: $base-font-size * 0.8;
-  top: $base-font-size * 0.4;
   border-left: 1px solid $grey-medium-dark;
-  margin-left: 10px;
-  padding-left: 10px;
+  padding: 0 $base-font-size * 0.8;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .portlet-indicator {
