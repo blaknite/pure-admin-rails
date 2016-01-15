@@ -56,11 +56,13 @@ PureAdmin.mainMenu = {
 
     mainMenu.addClass('navigating').find('.pure-menu-item').removeClass('menu-active');
     mainMenu.find('.pure-menu-link').off('click', PureAdmin.mainMenu.closeSubMenu);
-    element.addClass('menu-active');
-    element.find('.pure-menu-link').on('click', PureAdmin.mainMenu.closeSubMenu);
-    subMenu.removeClass('hidden').find('.pure-menu').html(subMenuContent);
+    if ( subMenuContent.length > 0 ) {
+      element.addClass('menu-active');
+      element.find('.pure-menu-link').on('click', PureAdmin.mainMenu.closeSubMenu);
+      subMenu.removeClass('hidden').find('.pure-menu').html(subMenuContent);
 
-    PureAdmin.mainMenu.updateArrows(subMenu);
+      PureAdmin.mainMenu.updateArrows(subMenu);
+    }
   },
 
   closeSubMenu: function() {
