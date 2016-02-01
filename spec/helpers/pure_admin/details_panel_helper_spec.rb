@@ -126,7 +126,7 @@ describe PureAdmin::DetailsPanelHelper do
       end
     end
 
-    context 'with a single sting or symbol argument' do
+    context 'with a single string or symbol argument' do
       subject(:html) { helper.details_panel_item('only one') }
 
       it 'takes the argument as a label' do

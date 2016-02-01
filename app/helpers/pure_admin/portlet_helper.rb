@@ -1,5 +1,5 @@
 ##
-# Helper methods for use throughout the application.
+# Helper methods to assist in building Pure Admin portlets.
 module PureAdmin::PortletHelper
   ##
   # Renders a "portlet" to the view.

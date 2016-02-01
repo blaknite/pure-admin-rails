@@ -73,7 +73,7 @@ PureAdmin.mainMenu = {
     mainMenu.removeClass('navigating').find('.pure-menu-item').removeClass('menu-active');
     mainMenu.find('.pure-menu-link').off('click', PureAdmin.mainMenu.closeSubMenu);
   }
-}
+};
 
 $('document').ready(function() {
   PureAdmin.mainMenu.updateArrows($('#main-menu'));

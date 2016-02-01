@@ -1,18 +1,10 @@
 $('document').ready(function() {
   $('#wrap').waypoint(function(direction) {
-    if ( direction == 'down') {
-      $('#back-to-top').show();
-    } else {
-      $('#back-to-top').hide();
-    }
+    $('#back-to-top').toggle(direction === 'down');
   }, { offset: -300 });
 
   $('#wrap').waypoint(function(direction) {
-    if ( direction == 'down') {
-      $('#wrap').addClass('no-header');
-    } else {
-      $('#wrap').removeClass('no-header');
-    }
+    $('#wrap').toggleClass('no-header', direction === 'down');
   }, { offset: -48 });
 
   $('#back-to-top').on('click', $.debounce(1000, true, function() {

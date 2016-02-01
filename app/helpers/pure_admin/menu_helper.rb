@@ -101,7 +101,7 @@ module PureAdmin::MenuHelper
   end
 
   ##
-  # Check if the menu item is currently active
+  # Check if the menu item is currently active. Is active if it is parent or current.
   # @param url (String) the menu item's URL.
   def current_parent?(url)
     return false unless url

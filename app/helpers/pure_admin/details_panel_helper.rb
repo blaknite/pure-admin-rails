@@ -69,7 +69,7 @@ module PureAdmin::DetailsPanelHelper
   end
 
   ##
-  # Allows building of details panels useing a custom DSL.
+  # Allows building of details panels using a custom DSL.
   #
   # <%= details_panel_for @resource do |dp| %>
   #   <%= dp.item :title %>

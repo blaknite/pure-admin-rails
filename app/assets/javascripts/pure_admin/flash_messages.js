@@ -10,4 +10,4 @@ PureAdmin.flashMessages = {
   destroy: function(event) {
     $(event.target).closest('.flash').remove();
   }
-}
+};
