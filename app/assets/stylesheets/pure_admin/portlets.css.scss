@@ -48,7 +48,6 @@ $icon-minus: '\f068';
               transition: all 0.2s linear;
     }
   }
-
 }
 
 .portlet-heading {
@@ -118,4 +117,16 @@ $icon-minus: '\f068';
   display: none;
   font-size: 14px;
   padding: 0 $base-font-size;
+
+  &.vertically-padded {
+    padding: 16px;
+  }
+
+  &.top-padded {
+    padding-top: 16px;
+  }
+
+  &.bottom-padded {
+    padding-bottom: 16px;
+  }
 }

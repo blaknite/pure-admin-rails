@@ -23,6 +23,10 @@
 
   @media (min-width: 35.5em) {
     padding-left: $base-font-size * 12;
+
+    &.not-aligned {
+      padding-left: $base-font-size;
+    }
   }
 
   label {
@@ -86,6 +90,10 @@
 
     @media (min-width: 35.5em) {
       padding-left: $base-font-size * 13;
+
+      &.not-aligned {
+        padding-left: $base-font-size;
+      }
     }
   }
 }
