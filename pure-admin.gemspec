@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency "exo2-rails"
   s.add_dependency "crummy"
   s.add_dependency "simple_form"
+  s.add_dependency 'select2-rails'
 end
