@@ -13,6 +13,7 @@ gem 'pure-css-reset-rails', github: 'blaknite/pure-css-reset-rails', branch: 'ma
 gem 'exo2-rails', github: 'blaknite/exo2-rails', branch: 'master'
 gem 'crummy', github: 'blaknite/crummy', branch: 'master'
 gem 'font-awesome-rails'
+gem 'select2-rails'
 gem 'pure-css-rails'
 ```
 
@@ -25,7 +26,10 @@ rails generate pure_admin:simple_form
 Then edit ```app/views/layouts/admin.html.erb``` to your liking.
 
 ## Dependencies
-Pure CSS, jQuery and waypoints.js.
+- Pure CSS
+- jQuery
+- waypoints.js
+- [Select2](https://select2.github.io/)
 
 ## Usage
 ### Portlets
