@@ -27,9 +27,7 @@ PureAdmin.modals = {
       return false;
     }
 
-    var html = '\
-    <span class="fa ' + icon + '"></span>\
-    ';
+    var html = '<span class="fa ' + icon + '"></span>';
 
     var modal = PureAdmin.modals._create('ajax', html);
 
@@ -54,7 +52,13 @@ PureAdmin.modals = {
   _alert: function (element) {
     var icon = element.data('modal-icon') || 'fa-exclamation-circle';
     var text = element.data('modal-text') || 'Oh no!';
-    var yesCallback = element.data('modal-yes-callback');
+
+    var yesCallbackFunction = PureAdmin.modals._getCallbackFunction(element.data('modal-yes-callback'));
+
+    var yesCallback = function() {
+      if ( yesCallbackFunction !== undefined ) yesCallbackFunction(element);
+      PureAdmin.modals._destroy(modal);
+    }
 
     var html = '\
       <span class="fa ' + icon + '"></span>\
@@ -68,10 +72,7 @@ PureAdmin.modals = {
 
     var modal = PureAdmin.modals._create('alert', html);
 
-    modal.find('*[modal-button=yes], .modal-background').on('click', function() {
-      if ( yesCallback !== undefined ) yesCallback();
-      PureAdmin.modals._destroy(modal);
-    });
+    modal.find('*[modal-button=yes]').on('click', yesCallback);
 
     return false;
   },
@@ -81,10 +82,21 @@ PureAdmin.modals = {
     var text = element.data('modal-text') || 'Are you sure?';
     var url = element.data('modal-url') || element.attr('href');
     var requestMethod = element.data('modal-request-method') || 'get';
-    var yesCallback = element.data('modal-yes-callback');
-    var noCallback = element.data('modal-no-callback');
 
-    if ( yesCallback === undefined ) {
+    var yesCallbackFunction = PureAdmin.modals._getCallbackFunction(element.data('modal-yes-callback'));
+    var noCallbackFunction = PureAdmin.modals._getCallbackFunction(element.data('modal-no-callback'));
+
+    var yesCallback = function() {
+      if ( yesCallbackFunction !== undefined ) yesCallbackFunction(element);      }
+      PureAdmin.modals._destroy(modal);
+    }
+
+    var noCallback = function() {
+      if ( noCallbackFunction !== undefined ) noCallbackFunction(element);
+      PureAdmin.modals._destroy(modal);
+    }
+
+    if ( yesCallbackFunction === undefined ) {
       var yesButton = '<a href="' + url + '" class="pure-button pure-button-primary"\
         modal-button="yes" data-method="' + requestMethod + '">Yes</a>';
     } else {
@@ -104,14 +116,8 @@ PureAdmin.modals = {
 
     var modal = PureAdmin.modals._create('confirm', html);
 
-    modal.find('*[modal-button=yes]').on('click', function() {
-      if ( yesCallback !== undefined ) yesCallback();
-      PureAdmin.modals._destroy(modal);
-    });
-    modal.find('*[modal-button=no], .modal-background').on('click', function() {
-      if ( noCallback !== undefined ) noCallback();
-      PureAdmin.modals._destroy(modal);
-    });
+    modal.find('*[modal-button=yes]').on('click', yesCallback);
+    modal.find('*[modal-button=no], .modal-background').on('click', noCallback);
 
     return false;
   },
@@ -162,9 +168,26 @@ PureAdmin.modals = {
   _destroy: function(modal) {
     modal.remove();
     $('body').removeClass('no-scroll');
+  },
+
+  _getCallbackFunction: function(callbackString) {
+    if ( callbackString === undefined ) return undefined;
+
+    var objects = callbackString.split('.');
+
+    var getObject = function(objects, object) {
+      object = object || window;
+      object = object[objects.shift()]
+
+      if ( object === undefined ) return undefined;
+
+      return ( objects.length > 0 ) ? getObject(objects, object) : object;
+    }
+
+    return getObject(objects);
   }
-}
+};
 
 $('document').ready(function() {
-  $('*[modal]').on('click', PureAdmin.modals.show);
+  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
 });
