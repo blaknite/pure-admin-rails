@@ -7,26 +7,10 @@ PureAdmin.modals = {
     var element = $(event.target).closest('*[modal]');
     var modalType = element.attr('modal');
 
-    switch ( modalType ) {
-      case 'ajax':
-        PureAdmin.modals._ajax(element);
-        break;
-
-      case 'alert':
-        PureAdmin.modals._alert(element);
-        break;
-
-      case 'confirm':
-        PureAdmin.modals._confirm(element);
-        break;
-
-      case 'html':
-        PureAdmin.modals._html(element);
-        break;
-
-      default:
-        PureAdmin.flashMessages.create('alert', modalType + ' is not a valid modal type.');
-        break;
+    if ( PureAdmin.modals['_' + modalType] !== undefined ) {
+      PureAdmin.modals['_' + modalType](element);
+    } else {
+      PureAdmin.flash('alert', modalType + ' is not a valid modal type.');
     }
 
     return false;
