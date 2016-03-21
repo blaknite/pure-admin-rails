@@ -12,12 +12,14 @@ module PureAdmin::PortletHelper
   def portlet(title, options = {}, &block)
     portlet_html = options[:portlet_html] || {}
     portlet_html[:class] = ['portlet', portlet_html[:class]]
-    portlet_html[:data] = portlet_html[:data] || {}
+    portlet_html[:data] ||= {}
     portlet_html[:data][:source] = options[:source] unless block_given?
 
     heading_html = options.delete(:heading_html) || {}
+    heading_html[:class] = merge_html_classes('portlet-heading', heading_html[:class])
 
     body_html = options.delete(:body_html) || {}
+    body_html[:class] = merge_html_classes('portlet-body clear-fix', body_html[:class])
 
     icon = content_tag(:i, nil, class: "portlet-heading-icon fa fa-fw fa-#{options[:icon]}") if options[:icon]
 
@@ -34,7 +36,7 @@ module PureAdmin::PortletHelper
       end
     end
 
-    # This determines if the portlet should be expanded by default. If if is explicitly given that
+    # This determines if the portlet should be expanded by default. If it is explicitly given that
     # takes precedence. If not, by default all remote portlets are not expanded and all static
     # portlets are.
     expand = options.key?(:expand) ? options[:expand] : block_given?
@@ -44,13 +46,11 @@ module PureAdmin::PortletHelper
       portlet_html[:data][:expand] = true
     end
 
-    heading_content = content_tag(:div, class: 'portlet-heading') do
+    heading_content = content_tag(:div, heading_html) do
       ( icon || ''.html_safe ) + content_tag(:h4, title) + ( controls_content || ''.html_safe )
     end
 
-    body_content = content_tag(:div, (capture(&block) if block_given?), { class: 'portlet-body clear-fix' })
-
-    portlet_html[:class] = portlet_html[:class].flatten.compact
+    body_content = content_tag(:div, (capture(&block) if block_given?), body_html)
 
     content_tag(:div, portlet_html) do
       heading_content + body_content

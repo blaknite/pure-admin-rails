@@ -48,7 +48,7 @@ describe PureAdmin::PortletHelper do
         subject(:html) { helper.portlet('apples', icon: :pencil) { 'banana' } }
 
         it 'contains the correct FontAwesome element' do
-          expect(html).to have_selector('.portlet-heading h4 .fa.fa-fw.fa-pencil')
+          expect(html).to have_selector('.portlet-heading-icon.fa.fa-fw.fa-pencil')
         end
       end
     end
@@ -80,8 +80,32 @@ describe PureAdmin::PortletHelper do
         subject(:html) { helper.portlet('apples', source: 'google.com', icon: :pencil) }
 
         it 'contains the correct FontAwesome element' do
-          expect(html).to have_selector('.portlet-heading h4 .fa.fa-fw.fa-pencil')
+          expect(html).to have_selector('.portlet-heading-icon.fa.fa-fw.fa-pencil')
         end
+      end
+    end
+
+    context 'when heading_html is passed in' do
+      it 'adds the class to the heading' do
+        expect(helper.portlet('Peaches', heading_html: { class: 'fuzzy' })).to \
+          have_selector('.portlet-heading.fuzzy')
+      end
+
+      it 'adds other attributes (ie: data)' do
+        expect(helper.portlet('Peaches', heading_html: { data: { pits: true } })).to \
+          have_selector('.portlet-heading[data-pits]')
+      end
+    end
+
+    context 'when body_html is passed in' do
+      it 'adds the class to the body' do
+        expect(helper.portlet('Peaches', body_html: { class: 'fuzzy' })).to \
+          have_selector('.portlet-body.fuzzy')
+      end
+
+      it 'adds other attributes (ie: data)' do
+        expect(helper.portlet('Peaches', body_html: { data: { pits: true } })).to \
+          have_selector('.portlet-body[data-pits]')
       end
     end
   end
