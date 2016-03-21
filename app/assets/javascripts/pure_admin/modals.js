@@ -87,7 +87,7 @@ PureAdmin.modals = {
     var noCallbackFunction = PureAdmin.modals._getCallbackFunction(element.data('modal-no-callback'));
 
     var yesCallback = function() {
-      if ( yesCallbackFunction !== undefined ) yesCallbackFunction(element);      }
+      if ( yesCallbackFunction !== undefined ) yesCallbackFunction(element);
       PureAdmin.modals._destroy(modal);
     }
 
