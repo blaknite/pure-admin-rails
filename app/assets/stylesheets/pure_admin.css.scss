@@ -1,6 +1,3 @@
-/*
- *= require font-awesome
- */
 @import 'pure_admin/variables.css.scss';
 @import 'pure_admin/utilities.css.scss';
 @import 'pure_admin/shell.css.scss';
@@ -18,4 +15,6 @@
 @import 'pure_admin/scopes.css.scss';
 @import 'pure_admin/auth.css.scss';
 @import 'pure_admin/modals.css.scss';
-@import 'pure_admin/inputs/*'
+
+// custom input css
+@import 'pure_admin/inputs/select.css.scss';
