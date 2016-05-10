@@ -20,20 +20,23 @@ module PureAdmin::TableFiltersHelper
   # @param options (Hash) all options that can be passed to form_tag are respected here.
   # @yield The contents for the table filters
   def table_filters(path, options = {}, &block)
-    options[:class] = merge_html_classes('pure-form pure-form-stacked table-filters clear-fix',
-      options[:class])
+    options[:class] = merge_html_classes('pure-form pure-form-stacked table-filters
+      js-partial-refresh clear-fix', options[:class])
 
     options[:remote] ||= true
     options[:method] ||= :get
 
     content = capture(&block)
-    content << content_tag(:div, submit_tag('Go', class: 'pure-button pure-button-primary'),
-      class: 'filter-group filter-submit')
-    content << hidden_field_tag(:sort, params[:sort])
-    content << hidden_field_tag(:reverse_order, params[:reverse_order])
 
-    form_tag path, options do
-      content
+    if content
+      content << content_tag(:div, submit_tag('Go', class: 'pure-button pure-button-primary'),
+        class: 'filter-group filter-submit')
+      content << hidden_field_tag(:sort, params[:sort])
+      content << hidden_field_tag(:reverse_order, params[:reverse_order])
+
+      form_tag path, options do
+        content
+      end
     end
   end
 

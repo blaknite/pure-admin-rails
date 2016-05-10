@@ -1,19 +1,21 @@
 (function() {
   var loadingTimer;
 
-  $(document).on('ajax:beforeSend', '.table-filters, .pure-table, .pagination', function(e, data) {
+  var matchElem = '.pagination, .js-partial-refresh';
+
+  $(document).on('ajax:beforeSend', matchElem, function(e, data) {
     loading(parentWrapper($(e.currentTarget)), true);
     e.stopPropagation();
   });
 
-  $(document).on('ajax:success', '.table-filters, .pure-table, .pagination', function(e, data) {
+  $(document).on('ajax:success', matchElem, function(e, data) {
     var wrapper = parentWrapper($(e.currentTarget));
     wrapper.html(data);
     loading(wrapper, false);
     e.stopPropagation();
   });
 
-  $(document).on('ajax:error', '.table-filters, .pure-table, .pagination', function(e, xhr, status, thrown) {
+  $(document).on('ajax:error', matchElem, function(e, xhr, status, thrown) {
     PureAdmin.flashMessages.create('error', thrown || 'Error');
     loading(parentWrapper($(e.currentTarget)), false);
     e.stopPropagation();

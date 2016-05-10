@@ -9,6 +9,10 @@ describe PureAdmin::TableFiltersHelper do
         expect(html).to have_selector('form.table-filters')
       end
 
+      it 'includes the .js-partial-refresh class' do
+        expect(html).to have_selector('form.table-filters.js-partial-refresh')
+      end
+
       it 'sets the form action to the given path' do
         expect(html).to have_selector('form.table-filters[action="http://t.t"]')
       end
@@ -40,6 +44,12 @@ describe PureAdmin::TableFiltersHelper do
 
         it 'renders the block within the .table-filters form' do
           expect(html).to have_selector('form.table-filters.test', text: 'block content')
+        end
+      end
+
+      context 'with a block of nil' do
+        it 'returns nil' do
+          expect(helper.table_filters('http://t.t', class: 'test') { nil }).to be nil
         end
       end
     end
