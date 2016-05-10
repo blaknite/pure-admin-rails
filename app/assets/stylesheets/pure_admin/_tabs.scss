@@ -1,0 +1,68 @@
+.tabbable {
+  display: inline-block;
+  margin-bottom: $base-font-size;
+  width: 100%;
+
+  .nav-tabs {
+    @extend .clear-fix;
+
+    margin: 0;
+    margin-bottom: -1px;
+    padding: 0;
+
+    > li {
+      float: left;
+      list-style: none;
+
+      &.active {
+        a {
+          background: $white;
+          border-bottom-color: transparent;
+          border-top: 2px solid $link-color;
+          box-shadow: 0 -2px 3px 0 rgba($black, 0.15);
+          color: $text-color;
+          margin-top: -1px;
+          z-index: 12;
+        }
+      }
+
+      &:last-of-type {
+        a {
+          border-right-width: 1px;
+        }
+      }
+
+      a {
+        background-color: $grey-light;
+        border: 1px solid $grey-medium;
+        border-bottom-width: 0;
+        border-right-width: 0;
+        color: lighten($text-color, 10%);
+        display: inline-block;
+        line-height: $base-font-size;
+        margin-right: -1px;
+        padding: 0.5em 1em;
+        position: relative;
+        z-index: 11;
+
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    background: $white;
+    border: 1px solid $grey-medium;
+    padding: 0 $base-font-size;
+
+    .tab-pane {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+    }
+  }
+}
