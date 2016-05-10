@@ -3,7 +3,9 @@ require 'rails_helper'
 describe PureAdmin::PortletHelper do
   describe '#portlet' do
     context 'when a block is given' do
-      subject(:html) { helper.portlet('apples', portlet_html: { class: 'classy', data: { whizz: 'pop' } }) { 'banana' } }
+      subject(:html) {
+        helper.portlet('apples', portlet_html: { class: 'classy', data: { whizz: 'pop' } }) { 'banana' }
+      }
 
       it 'uses options as html attributes' do
         expect(html).to have_selector('div.portlet[data-whizz="pop"]')
@@ -106,6 +108,26 @@ describe PureAdmin::PortletHelper do
       it 'adds other attributes (ie: data)' do
         expect(helper.portlet('Peaches', body_html: { data: { pits: true } })).to \
           have_selector('.portlet-body[data-pits]')
+      end
+    end
+
+    context 'when controls are passed in' do
+      context 'when a single control is passed' do
+        it 'includes the controls within the .portlet-controls class' do
+          expect(helper.portlet('Pineapple', controls: link_to('Test', 'http://test.test'))).to \
+            have_selector('.portlet-heading .portlet-controls .portlet-control-item', text: 'Test')
+        end
+      end
+
+      context 'when an array of controls are passed' do
+        it 'includes each controls within the .portlet-controls class' do
+          controls = [link_to('Test', 'http://test.test'), link_to('Spec', 'http://spec.spec')]
+          html = helper.portlet('Pineapple', controls: controls);
+          expect(html).to have_selector('.portlet-heading .portlet-controls .portlet-control-item',
+            text: 'Test')
+          expect(html).to have_selector('.portlet-heading .portlet-controls .portlet-control-item',
+            text: 'Test')
+        end
       end
     end
   end

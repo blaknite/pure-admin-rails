@@ -78,10 +78,12 @@ PureAdmin.portlets = {
    */
   loading: function(elem, loading, uniqueId) {
     if (loading !== false) {
-      PureAdmin.portlets.loadingTimer[uniqueId] = setTimeout(function() {
-        // if the wait is longer than the loading timeout we show a loading animation
-        elem.addClass('loading');
-      }, PureAdmin.LOADING_TIMEOUT);
+      if (!PureAdmin.portlets.loadingTimer[uniqueId]) {
+        PureAdmin.portlets.loadingTimer[uniqueId] = setTimeout(function() {
+          // if the wait is longer than the loading timeout we show a loading animation
+          elem.addClass('loading');
+        }, PureAdmin.LOADING_TIMEOUT);
+      }
     } else {
       clearTimeout(PureAdmin.portlets.loadingTimer[uniqueId]);
       delete PureAdmin.portlets.loadingTimer[uniqueId];
@@ -99,6 +101,15 @@ PureAdmin.portlets = {
     PureAdmin.flash_messages.create('error', 'An error occured when loading the remote URL.');
     return $('<p class="text-error text-center"><i class="fa fa-exclamation-triangle"></i> "' +
       (thrown || 'Error') + '" loading content</p>');
+  },
+
+  /*
+   * Load portlets that have a data-expand attribute
+   */
+  autoExpand: function() {
+    $('.portlet[data-expand]').each(function() {
+      PureAdmin.portlets.loadPortlet($(this));
+    });
   }
 };
 
@@ -116,7 +127,10 @@ $(document).ready(function() {
   }
 
   // Automatically open portlets that have the data-expand attribute set
-  $('.portlet[data-expand]').each(function() {
-    PureAdmin.portlets.loadPortlet($(this));
-  });
+  PureAdmin.portlets.autoExpand();
+});
+
+$(document).ajaxSuccess(function() {
+  // Automatically open portlets that have the data-expand attribute set
+  PureAdmin.portlets.autoExpand();
 });
