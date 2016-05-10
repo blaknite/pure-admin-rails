@@ -1,7 +1,7 @@
 var PureAdmin = PureAdmin || {};
 
 PureAdmin.mainMenu = {
-  scroll: function(element) {
+  scroll: function(element, event) {
     var menu = element.find('> nav');
     var menuList = menu.find('> .pure-menu-list');
 
@@ -78,11 +78,11 @@ PureAdmin.mainMenu = {
     PureAdmin.mainMenu.updateArrows($('#main-menu'));
 
     $('*[rel=main-menu-scroll]').on('click', function(event) {
-      PureAdmin.mainMenu.scroll($('#main-menu'));
+      PureAdmin.mainMenu.scroll($('#main-menu'), event);
     });
 
     $('*[rel=sub-menu-scroll]').on('click', function(event) {
-      PureAdmin.mainMenu.scroll($('#sub-menu'));
+      PureAdmin.mainMenu.scroll($('#sub-menu'), event);
     });
 
     $('#main-menu nav').on('scroll', function(event) {
