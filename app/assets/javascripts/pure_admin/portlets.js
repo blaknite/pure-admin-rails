@@ -1,6 +1,9 @@
 var PureAdmin = PureAdmin || {};
 
 PureAdmin.portlets = {
+
+  loadingTimer: {},
+
   /*
    * Toggles the 'expanded' class for the clicked portlet if it is closable.
    * Additionally calls the loadPortlet function if the portlet is now expanded.
@@ -51,7 +54,7 @@ PureAdmin.portlets = {
       return;
     }
 
-    PureAdmin.portlets.loading(portlet, true);
+    PureAdmin.portlets.loading(portlet, true, source);
 
     $.ajax(source, {
       success: function(data, textStatus, jqXHR) {
@@ -62,7 +65,7 @@ PureAdmin.portlets = {
       },
       complete: function(jxXHR, textStatus) {
         portlet.data('body-loaded', true);
-        PureAdmin.portlets.loading(portlet, false);
+        PureAdmin.portlets.loading(portlet, false, source);
       }
     });
   },
@@ -73,14 +76,17 @@ PureAdmin.portlets = {
    * @param elem (jQuery Object)
    * @param loading (Boolean)
    */
-  loading: function(elem, loading) {
+  loading: function(elem, loading, uniqueId) {
     if (loading !== false) {
-      PureAdmin.portlets.loadingTimer = setTimeout(function() {
-        // if the wait is longer than the loading timeout we show a loading animation
-        elem.addClass('loading');
-      }, PureAdmin.LOADING_TIMEOUT);
+      if (!PureAdmin.portlets.loadingTimer[uniqueId]) {
+        PureAdmin.portlets.loadingTimer[uniqueId] = setTimeout(function() {
+          // if the wait is longer than the loading timeout we show a loading animation
+          elem.addClass('loading');
+        }, PureAdmin.LOADING_TIMEOUT);
+      }
     } else {
-      clearTimeout(PureAdmin.portlets.loadingTimer);
+      clearTimeout(PureAdmin.portlets.loadingTimer[uniqueId]);
+      delete PureAdmin.portlets.loadingTimer[uniqueId];
       elem.removeClass('loading');
     }
   },
@@ -95,6 +101,15 @@ PureAdmin.portlets = {
     PureAdmin.flash_messages.create('error', 'An error occured when loading the remote URL.');
     return $('<p class="text-error text-center"><i class="fa fa-exclamation-triangle"></i> "' +
       (thrown || 'Error') + '" loading content</p>');
+  },
+
+  /*
+   * Load portlets that have a data-expand attribute
+   */
+  autoExpand: function() {
+    $('.portlet[data-expand]').each(function() {
+      PureAdmin.portlets.loadPortlet($(this));
+    });
   }
 };
 
@@ -112,7 +127,10 @@ $(document).ready(function() {
   }
 
   // Automatically open portlets that have the data-expand attribute set
-  $('.portlet[data-expand]').each(function() {
-    PureAdmin.portlets.loadPortlet($(this));
-  });
+  PureAdmin.portlets.autoExpand();
+});
+
+$(document).ajaxSuccess(function() {
+  // Automatically open portlets that have the data-expand attribute set
+  PureAdmin.portlets.autoExpand();
 });
