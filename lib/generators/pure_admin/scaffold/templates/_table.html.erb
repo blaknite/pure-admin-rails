@@ -1,0 +1,21 @@
+<table class="pure-table pure-table-striped pure-table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @model_instance_collection.each do |model_instance_singular| %>
+      <tr>
+        <td>
+          <%= model_instance_singular %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="clear-fix">
+  <%= page_entries_info(@model_instance_collection) %>
+  <%= paginate(@model_instance_collection, remote: true) %>
+</div>
