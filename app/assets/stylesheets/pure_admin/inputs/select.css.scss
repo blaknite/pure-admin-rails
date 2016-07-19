@@ -2,6 +2,14 @@
   display: table !important;
   table-layout: fixed;
 
+  &.select2-container--disabled {
+    background: $grey-light;
+
+    .select2-selection--single {
+      cursor: not-allowed;
+    }
+  }
+
   .select2-selection {
     color: inherit;
     border: 1px solid $input-border;
