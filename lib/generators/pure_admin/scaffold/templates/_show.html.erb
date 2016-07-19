@@ -1,0 +1,11 @@
+<%= portlet 'Details' do %>
+  <%= details_panel_for @model_instance_singular do |dp| %>
+    <%# dp.item :name %>
+  <% end %>
+
+  <%= details_panel_controls do %>
+    <%= edit_button(@model_instance_singular) %>
+    <%= delete_button(@model_instance_singular) %>
+    <%= back_button %>
+  <% end %>
+<% end %>

@@ -1,0 +1,11 @@
+Description:
+    This will generate skeleton views and controller files that you will need to modify to suit your application.
+
+Example:
+    rails generate pure_admin:scaffold [MODEL_NAME]
+
+    This will create:
+        app/views/{pluralised model name}/_table.html.erb
+        app/views/{pluralised model name}/_show.html.erb
+        app/views/{pluralised model name}/_form.html.erb
+        app/controllers/{pluralised model name}_controller.rb
