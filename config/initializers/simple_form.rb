@@ -145,5 +145,5 @@ SimpleForm.setup do |config|
   # config.cache_discovery = !Rails.env.development?
 
   # Default class for inputs
-  config.input_class = 'pure-input-1'
+  config.input_class = 'pure-input'
 end
