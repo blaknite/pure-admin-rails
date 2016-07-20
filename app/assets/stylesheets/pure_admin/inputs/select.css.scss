@@ -69,7 +69,9 @@
       .select2-results__option {
         white-space: nowrap;
         overflow: hidden;
+        overflow-y: auto;
         text-overflow: ellipsis;
+        max_height: 200px;
 
         &.select2-results__option--highlighted {
           color: $white;
