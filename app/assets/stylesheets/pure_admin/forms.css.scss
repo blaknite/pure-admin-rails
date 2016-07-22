@@ -78,6 +78,11 @@
         }
       }
     }
+
+    label.radio + .hint,
+    label.checkbox + .hint {
+      clear: both;
+    }
   }
 
   input.file {
