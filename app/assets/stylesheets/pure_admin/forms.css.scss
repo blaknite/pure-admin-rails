@@ -105,6 +105,11 @@
   .pure-form-indented {
     @include pure-form-indented;
   }
+
+  .details-panel-item label {
+    float: none;
+    color: inherit;
+  }
 }
 
 .editor-field {
