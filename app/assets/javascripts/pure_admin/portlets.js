@@ -78,10 +78,12 @@ PureAdmin.portlets = {
    */
   loading: function(elem, loading, uniqueId) {
     if (loading !== false) {
-      PureAdmin.portlets.loadingTimer[uniqueId] = setTimeout(function() {
-        // if the wait is longer than the loading timeout we show a loading animation
-        elem.addClass('loading');
-      }, PureAdmin.LOADING_TIMEOUT);
+      if (!PureAdmin.portlets.loadingTimer[uniqueId]) {
+        PureAdmin.portlets.loadingTimer[uniqueId] = setTimeout(function() {
+          // if the wait is longer than the loading timeout we show a loading animation
+          elem.addClass('loading');
+        }, PureAdmin.LOADING_TIMEOUT);
+      }
     } else {
       clearTimeout(PureAdmin.portlets.loadingTimer[uniqueId]);
       delete PureAdmin.portlets.loadingTimer[uniqueId];
@@ -101,6 +103,15 @@ PureAdmin.portlets = {
       (thrown || 'Error') + '" loading content</p>');
   },
 
+  /*
+   * Load portlets that have a data-expand attribute
+   */
+  autoExpand: function() {
+    $('.portlet[data-expand]').each(function() {
+      PureAdmin.portlets.loadPortlet($(this));
+    });
+  },
+
   ready: function() {
     // Automatically open portlets that match the anchor
     var anchorValue = document.location.toString().split("#")[1];
@@ -110,9 +121,7 @@ PureAdmin.portlets = {
     }
 
     // Automatically open portlets that have the data-expand attribute set
-    $('.portlet[data-expand]').each(function() {
-      PureAdmin.portlets.loadPortlet($(this));
-    });
+    PureAdmin.portlets.autoExpand();
   }
 };
 
@@ -121,6 +130,10 @@ PureAdmin.portlets = {
  */
 $(document).on('click', '.portlet-heading', PureAdmin.portlets.toggle);
 
-
 $(document).ready(PureAdmin.portlets.ready);
 $(document).on('turbolinks:load', PureAdmin.portlets.ready);
+
+$(document).ajaxSuccess(function() {
+  // Automatically open portlets that have the data-expand attribute set
+  PureAdmin.portlets.autoExpand();
+});
