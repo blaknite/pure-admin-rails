@@ -1,6 +1,10 @@
 var PureAdmin = PureAdmin || {};
 
 PureAdmin.modals = {
+  init: function () {
+    $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
+  },
+
   show: function (event) {
     event.preventDefault();
 
@@ -189,9 +193,13 @@ PureAdmin.modals = {
 };
 
 $('document').ready(function() {
-  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
+  PureAdmin.modals.init();
 });
 
 $(document).on('turbolinks:load', function() {
-  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
-})
+  PureAdmin.modals.init();
+});
+
+$(document).on('ajaxSuccess', function() {
+  PureAdmin.modals.init();
+});
