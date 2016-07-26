@@ -191,3 +191,7 @@ PureAdmin.modals = {
 $('document').ready(function() {
   $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
 });
+
+$(document).on('turbolinks:load', function() {
+  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
+})
