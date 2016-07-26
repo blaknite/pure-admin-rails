@@ -18,3 +18,7 @@ $(document).ready(function(context) {
 $(document).on('ajaxSuccess', function(context) {
   PureAdmin.inputs.initAll(context);
 });
+
+$(document).on('turbolinks:load', function(context) {
+  PureAdmin.inputs.initAll(context);
+});

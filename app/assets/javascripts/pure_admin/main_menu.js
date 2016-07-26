@@ -72,34 +72,37 @@ PureAdmin.mainMenu = {
     subMenu.addClass('hidden').find('.pure-menu').html($('#main-menu .current > .sub-menu').clone());
     mainMenu.removeClass('navigating').find('.pure-menu-item').removeClass('menu-active');
     mainMenu.find('.pure-menu-link').off('click', PureAdmin.mainMenu.closeSubMenu);
+  },
+
+  ready: function() {
+    PureAdmin.mainMenu.updateArrows($('#main-menu'));
+
+    $('*[rel=main-menu-scroll]').on('click', function(event) {
+      PureAdmin.mainMenu.scroll($('#main-menu'));
+    });
+
+    $('*[rel=sub-menu-scroll]').on('click', function(event) {
+      PureAdmin.mainMenu.scroll($('#sub-menu'));
+    });
+
+    $('#main-menu nav').on('scroll', function(event) {
+      PureAdmin.mainMenu.updateArrows($('#main-menu'));
+    });
+
+    $('#sub-menu nav').on('scroll', function(event) {
+      PureAdmin.mainMenu.updateArrows($('#sub-menu'));
+    });
+
+    $('#main-menu .pure-menu-link').on('click', function(event) {
+      var element = $(event.target).closest('li');
+      PureAdmin.mainMenu.openSubMenu(element);
+    });
+
+    $('#main').on('click', function(event) {
+      PureAdmin.mainMenu.closeSubMenu();
+    });
   }
 };
 
-$('document').ready(function() {
-  PureAdmin.mainMenu.updateArrows($('#main-menu'));
-
-  $('*[rel=main-menu-scroll]').on('click', function(event) {
-    PureAdmin.mainMenu.scroll($('#main-menu'));
-  });
-
-  $('*[rel=sub-menu-scroll]').on('click', function(event) {
-    PureAdmin.mainMenu.scroll($('#sub-menu'));
-  });
-
-  $('#main-menu nav').on('scroll', function(event) {
-    PureAdmin.mainMenu.updateArrows($('#main-menu'));
-  });
-
-  $('#sub-menu nav').on('scroll', function(event) {
-    PureAdmin.mainMenu.updateArrows($('#sub-menu'));
-  });
-
-  $('#main-menu .pure-menu-link').on('click', function(event) {
-    var element = $(event.target).closest('li');
-    PureAdmin.mainMenu.openSubMenu(element);
-  });
-
-  $('#main').on('click', function(event) {
-    PureAdmin.mainMenu.closeSubMenu();
-  });
-});
+$(document).ready(PureAdmin.mainMenu.ready)
+$(document).on('turbolinks:load', PureAdmin.mainMenu.ready)

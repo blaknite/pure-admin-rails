@@ -99,6 +99,20 @@ PureAdmin.portlets = {
     PureAdmin.flash_messages.create('error', 'An error occured when loading the remote URL.');
     return $('<p class="text-error text-center"><i class="fa fa-exclamation-triangle"></i> "' +
       (thrown || 'Error') + '" loading content</p>');
+  },
+
+  ready: function() {
+    // Automatically open portlets that match the anchor
+    var anchorValue = document.location.toString().split("#")[1];
+    if (typeof anchorValue !== 'undefined' && anchorValue.length !== 0) {
+      var anchorPortlet = $('.portlet.' + anchorValue);
+      PureAdmin.portlets.loadPortlet(anchorPortlet);
+    }
+
+    // Automatically open portlets that have the data-expand attribute set
+    $('.portlet[data-expand]').each(function() {
+      PureAdmin.portlets.loadPortlet($(this));
+    });
   }
 };
 
@@ -107,16 +121,6 @@ PureAdmin.portlets = {
  */
 $(document).on('click', '.portlet-heading', PureAdmin.portlets.toggle);
 
-$(document).ready(function() {
-  // Automatically open portlets that match the anchor
-  var anchorValue = document.location.toString().split("#")[1];
-  if (typeof anchorValue !== 'undefined' && anchorValue.length !== 0) {
-    var anchorPortlet = $('.portlet.' + anchorValue);
-    PureAdmin.portlets.loadPortlet(anchorPortlet);
-  }
 
-  // Automatically open portlets that have the data-expand attribute set
-  $('.portlet[data-expand]').each(function() {
-    PureAdmin.portlets.loadPortlet($(this));
-  });
-});
+$(document).ready(PureAdmin.portlets.ready);
+$(document).on('turbolinks:load', PureAdmin.portlets.ready);
