@@ -5,7 +5,7 @@ class AddonInput < SimpleForm::Inputs::StringInput
 
   def icon
     if options[:icon].present?
-      content_tag(:span, nil, class: ['input-addon', 'fa', 'fa-fw', options[:icon]])
+      template.content_tag(:span, nil, class: ['input-addon', 'fa', 'fa-fw', options[:icon]])
     else
       ''
     end

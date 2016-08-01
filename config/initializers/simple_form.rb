@@ -127,7 +127,8 @@ SimpleForm.setup do |config|
 
   # Custom wrappers for input types. This should be a hash containing an input
   # type as key and the wrapper that will be used for all inputs with specified type.
-  config.wrapper_mappings = { addon: :addon, email: :addon, tel: :addon }
+  config.wrapper_mappings = { addon: :addon, email: :addon, tel: :addon, pure_date: :addon,
+    pure_time: :addon, pure_datetime: :addon, autocomplete: :addon }
 
   # Default priority for time_zone inputs.
   # config.time_zone_priority = nil
