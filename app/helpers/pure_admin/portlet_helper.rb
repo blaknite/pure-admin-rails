@@ -11,7 +11,7 @@ module PureAdmin::PortletHelper
   # @yield The contents of the portlet
   def portlet(title, options = {}, &block)
     portlet_html = options[:portlet_html] || {}
-    portlet_html[:class] = ['portlet', portlet_html[:class]]
+    portlet_html[:class] = ['portlet clear-fix', portlet_html[:class]]
     portlet_html[:data] ||= {}
     portlet_html[:data][:source] = options[:source] unless block_given?
 
@@ -32,10 +32,24 @@ module PureAdmin::PortletHelper
 
     portlet_html[:data][:closable] = closable
 
-    if closable
-      controls_content = content_tag(:div, class: 'portlet-controls') do
-        content_tag(:span, nil, class: 'portlet-indicator')
+    controls_content = ''.html_safe
+    controls = options.delete(:controls)
+    if controls.present?
+      if controls.respond_to?(:each)
+        controls.each do |control|
+          controls_content << content_tag(:span, control, class: 'portlet-control-item')
+        end
+      else
+        controls_content << content_tag(:span, controls, class: 'portlet-control-item')
       end
+    end
+
+    if closable
+      controls_content << content_tag(:span, nil, class: 'portlet-indicator')
+    end
+
+    if controls_content.present?
+      controls_wrapper = content_tag(:div, controls_content, class: 'portlet-controls')
     end
 
     # This determines if the portlet should be expanded by default. If it is explicitly given that
@@ -49,7 +63,7 @@ module PureAdmin::PortletHelper
     end
 
     heading_content = content_tag(:div, heading_html) do
-      ( icon || ''.html_safe ) + content_tag(:h4, title) + ( controls_content || ''.html_safe )
+      (icon || ''.html_safe) + content_tag(:h4, title) + (controls_wrapper || ''.html_safe)
     end
 
     body_content = content_tag(:div, (capture(&block) if block_given?), body_html)
