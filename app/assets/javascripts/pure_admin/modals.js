@@ -22,6 +22,8 @@ PureAdmin.modals = {
     var requestMethod = element.data('modal-request-method') || 'get';
     var requestData = element.data('modal-request-data') || {};
 
+    var header = element.data('modal-text') || element.data('modal-heading');
+
     if ( url === undefined ) {
       PureAdmin.flashMessages.create('alert', 'You need to pass a URL to AJAX modals.');
       return false;
@@ -38,9 +40,18 @@ PureAdmin.modals = {
       timeout: 40000,
       success: function(response) {
         modal.find('.modal').append('<div class="modal-body">' + response + '</div>').show();
-        modal.find('.modal-background').on('click', function(event) { PureAdmin.modals._destroy(modal) });
+        if (header) {
+          modal.find('.modal-body').prepend('<div class="modal-header"><h3>' + header + '</h3></div>');
+        }
+
+        modal.find('.modal-background').on('click', function(event) {
+          PureAdmin.modals._destroy(modal);
+        });
+
+        element.trigger('pure-admin:modal:shown');
       },
       error: function(response) {
+        element.trigger('pure-admin:modal:error');
         PureAdmin.modals._destroy(modal);
         PureAdmin.flashMessages.create('error', 'An error occured when loading the remote URL.');
       }
@@ -124,17 +135,16 @@ PureAdmin.modals = {
 
   _html: function (element) {
     var icon = element.data('modal-icon') || 'fa-info-circle';
-    var innerHtml = element.data('modal-html') || '';
+    var modalHtmlElement = element.data('modal-html-element');
+    var innerHtml;
 
-    if ( url === undefined ) {
-      PureAdmin.flashMessages.create('alert', 'You need to pass a URL to AJAX modals.');
-      return false;
+    if (modalHtmlElement) {
+      innerHtml = $(modalHtmlElement).html();
+    } else {
+      innerHtml = element.data('modal-html') || '';
     }
 
-    var html = '\
-      <span class="fa ' + icon + '"></span>\
-      ' + element.data('modal-html') + '\
-    ';
+    var html = '<span class="fa ' + icon + '"></span>' + innerHtml;
 
     var modal = PureAdmin.modals._create('html', html);
 
@@ -162,10 +172,27 @@ PureAdmin.modals = {
     // if the wait is longer than the loading timeout we show a loading gif
     setTimeout(function() { modal.find('.modal-loading').css('opacity', 1) }, PureAdmin.LOADING_TIMEOUT);
 
+    /*
+     * Allow any click on an element with modal-action="close" within the modal to close the modal.
+     */
+    modal.on('click', '*[modal-action=close]', function(event) {
+      event.preventDefault();
+      PureAdmin.modals._destroy(modal);
+    });
+
+    /*
+     * Allow the modal to be closed by sending the modal element a 'hide' event.
+     */
+    modal.on('hide', function(event) {
+      event.preventDefault();
+      PureAdmin.modals._destroy(modal);
+    });
+
     return modal;
   },
 
   _destroy: function(modal) {
+    modal.trigger('pure-admin:modal:destroy');
     modal.remove();
     $('body').removeClass('no-scroll');
   },
@@ -188,7 +215,11 @@ PureAdmin.modals = {
   }
 };
 
-$('document').ready(function() {
+$(document).ready(function() {
+  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
+});
+
+$(document).ajaxSuccess(function() {
   $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
 });
 
