@@ -8,7 +8,10 @@ class CollectionSelectInput < SimpleForm::Inputs::CollectionSelectInput
 
   def input_html_options
     super.deep_merge(
-      style: 'width: 100%;'
+      style: 'width: 100%;',
+      data: {
+        tags: options[:create_when_no_match] || false
+      }
     )
   end
 end

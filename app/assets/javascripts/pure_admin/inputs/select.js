@@ -16,6 +16,6 @@ PureAdmin.inputs.select = {
   },
 
   formatResult: function(result) {
-    return result.name || result.text || '<span class="text-muted">(blank)</span>'
+    return result.name || result.text || '<span class="text-muted">(blank)</span>';
   }
 };
