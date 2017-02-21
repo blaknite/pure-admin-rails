@@ -19,6 +19,7 @@
 
     &:focus {
       outline: 0;
+      border-color: $input-active;
     }
 
     .select2-selection__arrow {
