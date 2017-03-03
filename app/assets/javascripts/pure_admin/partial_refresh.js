@@ -4,7 +4,7 @@ PureAdmin.partial_refresh = {
   loadingTimer: {},
 
   init: function() {
-    var matchElem = '.js-partial-refresh';
+    var matchElem = '.pagination, .js-partial-refresh';
 
     /*
     * When the ajaxSend event is triggered on matchElem, show the loading indicator.
