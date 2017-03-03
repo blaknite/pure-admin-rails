@@ -6,6 +6,10 @@ PureAdmin.partial_refresh = {
   init: function() {
     var matchElem = '.pagination, .js-partial-refresh';
 
+    // Only initialise once, multiple times caused loading issues
+    if (window.partial_refresh_init == true)
+      return;
+
     /*
     * When the ajaxSend event is triggered on matchElem, show the loading indicator.
     */
@@ -75,8 +79,13 @@ PureAdmin.partial_refresh = {
         elem.removeClass('loading');
       }
     }
+    window.partial_refresh_init = true;
   }
 };
 
-$(document).ready(PureAdmin.partial_refresh.init);
-$(document).on('turbolinks:load', PureAdmin.partial_refresh.init);
+// Init via Turbolinks load if that exists
+if (typeof(Turbolinks) == 'undefined') {
+  $(document).ready(PureAdmin.partial_refresh.init);
+} else {
+  $(document).on('turbolinks:load', PureAdmin.partial_refresh.init);
+}
