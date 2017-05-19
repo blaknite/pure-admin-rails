@@ -14,13 +14,13 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,lib}/**/*", "LICENSE", "README.md"]
 
-  s.add_dependency "jquery-rails"
-  s.add_dependency "font-awesome-rails"
+  s.add_dependency "jquery-rails", '>= 4'
+  s.add_dependency "font-awesome-rails", '>= 4'
   s.add_dependency "pure-css-rails"
   s.add_dependency "pure-css-reset-rails"
   s.add_dependency "exo2-rails"
-  s.add_dependency "crumpet"
-  s.add_dependency "simple_form"
+  s.add_dependency "crumpet", '>= 0.2'
+  s.add_dependency "simple_form", '>= 3.5'
   s.add_dependency 'select2-rails'
 
   s.add_development_dependency 'bundler', '>= 1.12.5'
