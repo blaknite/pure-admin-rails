@@ -46,3 +46,15 @@
     margin: 0;
   }
 }
+
+.button-group {
+  white-space: nowrap;
+
+  .pure-button {
+    margin-right: -0.3em;
+
+    &.pure-button:not(:first-of-type) {
+      border-left: 0;
+    }
+  }
+}
