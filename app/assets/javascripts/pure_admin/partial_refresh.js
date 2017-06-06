@@ -4,7 +4,8 @@ PureAdmin.partial_refresh = {
   loadingTimer: {},
 
   init: function() {
-    var matchElem = '.js-partial-refresh';
+    var matchElem = '.pagination, .js-partial-refresh';
+
     // Only initialise once, multiple times caused loading issues
     if (window.partial_refresh_init == true)
       return;
