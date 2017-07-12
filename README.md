@@ -4,7 +4,7 @@
 
 Pure CSS Admin Template for Rails 4+.
 
-Forms work with SimpleForm, breadcrumbs with crummy.
+Forms work with SimpleForm, breadcrumbs with crumpet.
 
 ## Installation
 
