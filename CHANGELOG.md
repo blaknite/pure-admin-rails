@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.0.0
+
 * DSL for menus
 * DSL for details panels
 * DSL for portlets
