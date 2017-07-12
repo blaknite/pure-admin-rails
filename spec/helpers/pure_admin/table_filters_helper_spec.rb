@@ -26,8 +26,8 @@ describe PureAdmin::TableFiltersHelper do
       end
 
       it 'renders the hidden fields for sort order and reverse sort' do
-        expect(html).to have_selector('form.table-filters input[type="hidden"][name="sort"]')
-        expect(html).to have_selector('form.table-filters input[type="hidden"][name="reverse_order"]')
+        expect(html).to have_selector('form.table-filters input[type="hidden"][name="sort"]', visible: false)
+        expect(html).to have_selector('form.table-filters input[type="hidden"][name="reverse_order"]', visible: false)
       end
 
       it 'renders the block within the .table-filters element' do
