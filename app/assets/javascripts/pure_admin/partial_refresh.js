@@ -29,7 +29,9 @@ PureAdmin.partial_refresh = {
       var uniqueId = target.data('pure-admin-unique-id');
       var wrapper = parentWrapper(target);
 
-      wrapper.html(data);
+      // Data will be undefined if we are using Rails 5.1 since UJS dropped
+      // jQuery, so we get the data from the Event
+      wrapper.html(data || e.detail[2].response);
       loading(wrapper, false, uniqueId);
       e.stopPropagation();
     });
