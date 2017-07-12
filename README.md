@@ -1,10 +1,13 @@
-# pure-admin
-Pure CSS Admin Template for Rails 4. Hopefully I didn't miss anything.
+# pure-admin-rails
+
+[![Build Status](https://travis-ci.org/blaknite/pure-admin-rails.svg?branch=master)](https://travis-ci.org/blaknite/pure-admin-rails)
+
+Pure CSS Admin Template for Rails 4+.
 
 Forms work with SimpleForm, breadcrumbs with crummy.
 
-
 ## Installation
+
 Add these lines to your Gemfile
 ```ruby
 # Admin theme + dependencies
@@ -26,16 +29,20 @@ rails generate pure_admin:simple_form
 Then edit ```app/views/layouts/admin.html.erb``` to your liking.
 
 ## Dependencies
+
 - Pure CSS
 - jQuery
 - waypoints.js
 - [Select2](https://select2.github.io/)
 
 ## Usage
+
 ### Portlets
+
 Portlets are optionally collapsable containers that can be passed a block, or a source URL.
 
 #### Simple Portlets
+
 The simplest incarnation of a portlet is,
 ```erb
 <%= portlet do %>
@@ -81,6 +88,7 @@ Any other options that can be passed to Rails' `content_tag` are respected on th
 ```
 
 #### Source Portlets
+
 Source portlets are given a source URL which, when expanded, will fetch the content at this URL and display it within the portlet body.
 
 Source portlets require a title be given, to give the user somewhere to click to expand.
