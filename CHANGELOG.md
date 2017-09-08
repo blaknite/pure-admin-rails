@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Portlet toggle event no longer hijacks links in the header.
+
 ## 2.0.0
 
 * DSL for menus
