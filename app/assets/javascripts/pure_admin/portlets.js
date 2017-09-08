@@ -122,6 +122,11 @@ PureAdmin.portlets = {
 
     // Automatically open portlets that have the data-expand attribute set
     PureAdmin.portlets.autoExpand();
+
+    // Stop links from being overriden by portlets onclick handler
+    $(".portlet-heading a").click(function(e) {
+      e.stopPropagation();
+    });
   }
 };
 
