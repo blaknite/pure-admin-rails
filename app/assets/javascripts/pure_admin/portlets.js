@@ -124,7 +124,7 @@ PureAdmin.portlets = {
     PureAdmin.portlets.autoExpand();
 
     // Stop links from being overriden by portlets onclick handler
-    $(".portlet-heading a").click(function(e) {
+    $(".portlet-heading a:not(.quick-edit-open)").click(function(e) {
       e.stopPropagation();
     });
   }
