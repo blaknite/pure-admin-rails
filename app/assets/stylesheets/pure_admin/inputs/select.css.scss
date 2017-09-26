@@ -15,7 +15,8 @@
     border: 1px solid $input-border;
     box-shadow: none;
     border-radius: 0;
-    height: 2.5em !important;
+    min-height: 2.5em;
+    line-height: 14px;
 
     &:focus {
       outline: 0;
