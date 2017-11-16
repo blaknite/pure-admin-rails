@@ -1,6 +1,12 @@
 var PureAdmin = PureAdmin || {};
 
 PureAdmin.modals = {
+  close: true,
+
+  addBackgroundClose: function(option) {
+    PureAdmin.modals.close = option;
+  },
+
   show: function (event) {
     event.preventDefault();
 
@@ -23,6 +29,7 @@ PureAdmin.modals = {
     var requestData = element.data('modal-request-data') || {};
 
     var header = element.data('modal-text') || element.data('modal-heading');
+    var close = element.data('close');
 
     if ( url === undefined ) {
       PureAdmin.flashMessages.create('alert', 'You need to pass a URL to AJAX modals.');
@@ -43,10 +50,14 @@ PureAdmin.modals = {
         if (header) {
           modal.find('.modal-body').prepend('<div class="modal-header"><h3>' + header + '</h3></div>');
         }
-
-        modal.find('.modal-background').on('click', function(event) {
-          PureAdmin.modals._destroy(modal);
-        });
+        if (close) {
+          PureAdmin.modals.close = close;
+        }
+        if (PureAdmin.modals.close == true) {
+          modal.find('.modal-background').on('click', function (event) {
+            PureAdmin.modals._destroy(modal);
+          });
+        }
 
         element.trigger('pure-admin:modal:shown');
       },
