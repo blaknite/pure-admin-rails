@@ -204,25 +204,15 @@ PureAdmin.modals = {
 
     var getObject = function(objects, object) {
       object = object || window;
-      object = object[objects.shift()]
+      object = object[objects.shift()];
 
       if ( object === undefined ) return undefined;
 
       return ( objects.length > 0 ) ? getObject(objects, object) : object;
-    }
+    };
 
     return getObject(objects);
   }
 };
 
-$(document).ready(function() {
-  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
-});
-
-$(document).ajaxSuccess(function() {
-  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
-});
-
-$(document).on('turbolinks:load', function() {
-  $('*[modal]:not(.bound-modal)').addClass('bound-modal').on('click', PureAdmin.modals.show);
-})
+$(document).on('click', '*[modal]', PureAdmin.modals.show);
