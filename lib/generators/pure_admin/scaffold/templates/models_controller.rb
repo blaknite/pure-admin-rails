@@ -4,7 +4,7 @@ class ModelClassNamePluralController < ApplicationController
   respond_to :html
 
   def index
-    @title = 'ModelClassNamePlural'
+    @title = 'ModelClassTitlePlural'
     @model_instance_collection = apply_scopes(@model_instance_collection)
 
     respond_with(@model_instance_collection) do |format|
@@ -20,18 +20,18 @@ class ModelClassNamePluralController < ApplicationController
   end
 
   def new
-    @title = 'New ModelClassName'
+    @title = 'New ModelClassNameReadable'
   end
 
   def create
     respond_to do |format|
       if @model_instance_singular.save
         format.html do
-          redirect_to @model_instance_singular, notice: 'ModelClassName was successfully created.'
+          redirect_to @model_instance_singular, notice: 'ModelClassNameReadable was successfully created.'
         end
       else
         format.html do
-          @title = 'New ModelClassName'
+          @title = 'New ModelClassNameReadable'
           render action: :new
         end
       end
@@ -46,7 +46,7 @@ class ModelClassNamePluralController < ApplicationController
     respond_to do |format|
       if @model_instance_singular.update(model_instance_singular_params)
         format.html do
-          redirect_to @model_instance_singular, notice: 'ModelClassName was successfully updated.'
+          redirect_to @model_instance_singular, notice: 'ModelClassNameReadable was successfully updated.'
         end
       else
         format.html do

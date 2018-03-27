@@ -11,6 +11,8 @@ class PureAdmin::ScaffoldGenerator < Rails::Generators::NamedBase
     gsub_file(controller_path, /ModelClassName/, model_class_name)
     gsub_file(controller_path, /model_instance_collection/, model_instance_collection)
     gsub_file(controller_path, /model_instance_singular/, model_instance_singular)
+    gsub_file(controller_path, /ModelClassNameReadable/, model_class_title)
+    gsub_file(controller_path, /ModelClassTitlePlural/, model_class_heading)
   end
 
   def copy_table
@@ -46,6 +48,14 @@ class PureAdmin::ScaffoldGenerator < Rails::Generators::NamedBase
 
     def model_class_name_plural
       model_instance_collection.camelize
+    end
+
+    def model_class_title
+      model_instance_collection.titleize
+    end
+
+    def model_class_heading
+      model_instance_collection.titleize.pluralize
     end
 
     def controller_path
