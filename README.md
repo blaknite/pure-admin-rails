@@ -18,6 +18,7 @@ gem 'crummy', github: 'blaknite/crummy', branch: 'master'
 gem 'font-awesome-rails'
 gem 'select2-rails'
 gem 'pure-css-rails'
+gem 'simple_form'
 ```
 
 Run
